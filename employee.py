@@ -4,7 +4,7 @@ employees = [
     {"username": "user2", "password": "pass2"},
     {"username": "user3", "password": "pass3"}
 ]
-def Employee_login():
+def employee_login():
     print("welcome Employee")
     while True:
         input_username = input("username (or type 'panel' to go back to start menu): ")
