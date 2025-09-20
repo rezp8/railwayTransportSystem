@@ -65,7 +65,7 @@ class Employee:
 
         for tr in Employee.trains:
             if tr.id == id:
-                print("⚠️ Train ID must be unique!")
+                print("Train ID must be unique!")
                 return
 
         new_train = Train(name, line, avg_speed, stop_times, quality, cost, seats, id)
@@ -159,7 +159,7 @@ class Employee:
             print(f"Seats: {tr.seats}")
             print("Stop Times:")
             for station, duration in tr.stop_times.items():
-                print(f"  {station}: {duration} min\n")
+                print(f" {station}: {duration} min\n")
 
 
                  
