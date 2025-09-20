@@ -22,7 +22,7 @@ def employee_login(employees):
                 employee_panel(todo)
                 return   
             else:
-                print("Incorrect password, please try again.\n")
+                print("Incorrect password!, please try again.\n")
         else:
             print("Username not found, please try again.\n")
 from line_class import Line
