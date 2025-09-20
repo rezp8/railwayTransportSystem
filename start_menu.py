@@ -44,8 +44,6 @@ def start_menu():
                     print("------------------------")  
                 
                     
-            
-
         
 if __name__ == "__main__":
     start_menu()   
