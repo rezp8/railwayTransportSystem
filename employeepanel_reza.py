@@ -1,5 +1,5 @@
-from line_class import Line
-from train_class import Train
+from line_reza import Line
+from train_reza import Train
 t = Train()
 l = Line()
 dic = {"user":["name", "last name", "email", "password"]}
@@ -33,24 +33,32 @@ def panel():
         "8) see line informations \n"
         "9) Sign out of the user account \n"
     )
-    number = int(input("pleae enter a number to continue: "))
+    number = int(input("Please enter a number to continue: "))
     try:
         if number == 1:
             l.add_line()
+            panel()
         elif number == 2:
             l.update_line()
+            panel()
         elif number == 3:
             l.delete_line()
+            panel()
         elif number == 4:
             l.line_information()
+            panel()
         elif number == 5:
             t.add_train()
+            panel()
         elif number == 6:
             t.update_train()
+            panel()
         elif number == 7:
             t.delete_train()
+            panel()
         elif number == 8:
             t.trains_information()
+            panel()
         elif number == 9:
             exit()
         else:

@@ -31,13 +31,10 @@ class Line:
             "1) Ok \n"
             "2) I repeat the operation again. \n")
             if ok == "1":
-                self.lines[line_name] = [origin, destination, number, stations_list]
+                self.lines[line_name] = [origin, destination, stations_list, number]
                 break
             elif ok == "2":
                 self.add_line()
-
-        from panel2 import panel
-        panel()
 
     def update_line(self):
         while True:
@@ -52,37 +49,42 @@ class Line:
         print(f"{line_name} line:\n\t"
               f"origin: {self.lines[line_name][0]}\n\t"
               f"destination: {self.lines[line_name][1]}\n\t"
-              f"number: {self.lines[line_name][2]}\n\t"
-              f"stations_list: {self.lines[line_name][3]}\n")
+              f"stations_list: {self.lines[line_name][2]}\n\t"
+              f"number: {self.lines[line_name][3]}\n")
         print("which one update? \n"
               "1)linename \n"
               "2)origin \n"
               "3)destination \n"
-              "4)number \n"
-              "5)stationlist")
+              "4)stationlist")
         n = int(input())
-        new = input("Please enter your new value: ")
+        
         if n == 1:
+            new = input("Please enter your new value: ")
             self.lines[new] = self.lines[line_name]
             self.lines.pop(line_name)
-        elif n in range(2,6):
+        elif n in range(2,4):
+            new = input("Please enter your new value: ")
             self.lines[line_name][n-2] = new
+        elif n == 4:
+            x = int(input("What changes would you like to make to the station list? \n" \
+            "1) Remove the station \n" \
+            "2) Add station \n"))
 
-        from panel2 import panel
-        panel()
+            if x == 1:
+                name = input("Please enter station name to remove.")
+                self.lines[line_name][2].remove(name)
+            elif x == 2:
+                name = input("Please enter station name to add.")
+                self.lines[line_name][2].append(name)
+            self.lines[line_name][3] = len(self.lines[line_name][2])
 
     def delete_line(self):
         line_name = input("Enter linename to delete :")
         self.lines.pop(line_name)
         self.unauthorized.append(user)
 
-        from panel2 import panel
-        panel()
-
     def line_information(self):
         print(self.lines)
 
-        from panel2 import panel
-        panel()
 
 
