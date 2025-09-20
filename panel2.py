@@ -9,27 +9,29 @@ def sign_in():
     password = input("Enter your password: ")
     for i in dic:
         try:
-            if user in l.unauthorized_list:
+            if user in l.unauthorized:
                 print("You can't sign in")
-            elif dic[i]==user and dic[i][3]==password:
+            elif i==user and dic[i][3]==password:
                 panel()
             else:
                 raise ValueError("Your password or user is not correct")
         except ValueError:
             print("Your password or user is not correct")
+            sign_in()
 
 def panel():
     print(
-        "Train employee panel"
-        "1) add a new line"
-        "2) edit and update a line"
-        "3) delete a line"
-        "4) see line informations"
-        "5) add a new train"
-        "6) edit and update a train"
-        "7) delete a train"
-        "8) see line informations"
-        "9) Sign out of the user account"
+        "-------------------- \n"
+        "Train employee panel \n" 
+        "1) add a new line \n"
+        "2) edit and update a line \n"
+        "3) delete a line \n"
+        "4) see line informations \n"
+        "5) add a new train \n"
+        "6) edit and update a train \n"
+        "7) delete a train \n"
+        "8) see line informations \n"
+        "9) Sign out of the user account \n"
     )
     number = int(input("pleae enter a number to continue: "))
     try:
@@ -53,7 +55,7 @@ def panel():
             exit()
         else:
             raise ValueError("Please enter a number from 1 to 9")
-    except:
+    except ValueError:
         print("Please enter a number from 1 to 9")
 
 sign_in()
