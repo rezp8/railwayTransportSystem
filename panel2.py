@@ -58,5 +58,7 @@ def panel():
     except ValueError:
         print("Please enter a number from 1 to 9")
 
+sign_in()
+
 
 

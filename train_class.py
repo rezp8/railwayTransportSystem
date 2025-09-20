@@ -1,10 +1,9 @@
-from panel2 import l
-
 class Train:
     def __init__(self):
         self.trains = {}
 
     def add_train(self):
+        from panel2 import l
         train_name = input("Enter train_name: ")
         line_name = input("Enter line_name: ")
         average_speed = input("Enter average_speed: ")

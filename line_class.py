@@ -36,6 +36,8 @@ class Line:
                 break
             elif ok == "2":
                 self.add_line()
+                
+        from panel2 import panel
         panel()
 
     def update_line(self):
@@ -66,16 +68,22 @@ class Line:
             self.lines.pop(line_name)
         elif n in range(2,6):
             self.lines[line_name][n-2] = new
+
+        from panel2 import panel
         panel()
 
     def delete_line(self):
         line_name = input("Enter linename to delete :")
         self.lines.pop(line_name)
         self.unauthorized.append(user)
+
+        from panel2 import panel
         panel()
 
     def line_information(self):
         print(self.lines)
+
+        from panel2 import panel
         panel()
 
 
