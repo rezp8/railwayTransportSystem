@@ -128,7 +128,7 @@ class Employee:
                         print(" Invalid option.")
                 print("Train updated successfully!")
                 return
-        print(" Train not found.")
+        print("Train not found!")
     @staticmethod
     def delete_train():
         id = Employee.safe_input("Enter the train ID to delete or type 'back' to return: ")
