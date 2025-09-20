@@ -1,4 +1,3 @@
-from panel2 import panel
 user = ""
 
 class Line:
@@ -36,7 +35,7 @@ class Line:
                 break
             elif ok == "2":
                 self.add_line()
-                
+
         from panel2 import panel
         panel()
 
