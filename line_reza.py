@@ -7,13 +7,47 @@ class Line:
 
     def add_line(self):
         while True:
-            line_name = input("Please enter line_name: ")
-            if line_name in self.lines:
-                print("This name is duplicated, please try again.")
-            else:
-                break
-        origin = input("Enter origin: ")
-        destination = input("Enter destination: ")
+            line_name = input("Please enter line_name: (or print exit to finish)")
+            try:
+                if line_name in self.lines:
+                    NameError("This name is duplicated, please try again.")
+                elif line_name == "":
+                    ValueError("This value cannot be empty.")
+                elif line_name == "exit":
+                    return
+                else:
+                    break
+            except NameError as e:
+                print(e)
+            except ValueError as e:
+                print(e)
+        while True:
+            origin = input("Enter origin: (or print exit to finish)")
+            try:
+                if origin == "":
+                    ValueError("This value cannot be empty.")
+                elif origin == "exit":
+                    return
+                else:
+                    break
+            except ValueError as e:
+                print(e)
+        while True:        
+            destination = input("Enter destination: (or print exit to finish)")
+            try:
+                if origin == "":
+                    ValueError("This value cannot be empty.")
+                elif destination == origin:
+                    NameError("The origin name cannot be the same as the destination name.")
+                elif origin == "exit":
+                    return
+                else:
+                    break
+            except ValueError as e:
+                print(e)
+            except NameError as e:
+                print(e)
+
         #number = input("enter number: ")
         stations_list = []
         print("To create a list of stations, enter the name of each station, then press the enter button \nand press the f button to finish.")
