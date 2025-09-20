@@ -1,14 +1,16 @@
+from panel2 import l
+
 class Train:
     def __init__(self):
         self.trains = {}
-        
+
     def add_train(self):
         train_name = input("Enter train_name: ")
         line_name = input("Enter line_name: ")
         average_speed = input("Enter average_speed: ")
         stop_dic = {}
-        for i in self.lines[line_name][3]:
-            stop_dic[i] = input(f"please enter the amount of time spent at {i} station: ")
+        for i in l.lines[line_name][3]:
+            stop_dic[i] = input(f"Please enter the amount of time spent at {i} station: ")
         quality_grade = input("Enter quality_grade: ")
         ticket_cost = input("Enter ticket_cost: ")
         capacity = input("Enter capacity: ")

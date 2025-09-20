@@ -1,4 +1,6 @@
+from panel2 import panel
 user = ""
+
 class Line:
     def __init__(self):
         self.lines = {}
@@ -34,6 +36,7 @@ class Line:
                 break
             elif ok == "2":
                 self.add_line()
+        panel()
 
     def update_line(self):
         while True:
@@ -45,7 +48,6 @@ class Line:
                     raise KeyError("The line name is invalid. Please try again.")
             except KeyError:
                 print("The line name is invalid. Please try again.")
-                
         print(f"{line_name} line:\n\t"
               f"origin: {self.lines[line_name][0]}\n\t"
               f"destination: {self.lines[line_name][1]}\n\t"
@@ -64,13 +66,16 @@ class Line:
             self.lines.pop(line_name)
         elif n in range(2,6):
             self.lines[line_name][n-2] = new
+        panel()
 
     def delete_line(self):
         line_name = input("Enter linename to delete :")
         self.lines.pop(line_name)
         self.unauthorized.append(user)
+        panel()
 
     def line_information(self):
         print(self.lines)
+        panel()
 
 
