@@ -1,4 +1,6 @@
 from admin import Admin
+from employee import employee_login
+admin = Admin()
 
 def start_menu():
     while True:
@@ -12,12 +14,12 @@ def start_menu():
         
         if choose == "1":
             print("Admin Khosh oomadi!")
-            select = Admin()
-            if select.log_in():
-                select.admin_panel()
+            if admin.log_in():
+                admin.admin_panel()
                 
         elif choose == "2":
             #waiting for published
+            employee_login(admin.employees)
             print("Karmand Khosh oomadi!")
             print("Coming Soon")
             
