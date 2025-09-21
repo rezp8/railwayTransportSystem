@@ -18,16 +18,19 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input11 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input11 == "exit":
-                            return
+                        while True:
+                            user_input1 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input1 == "1":
+                                break
+                            elif user_input1 == "0":
+                                return
 
                 while True:
                     try:
                         print(sorted(list(self.line.lines.keys())))
                         self.moving_line = input(
-                            "Please choose 'Train Line' from the list above: ").strip().title()
+                            "Please choose a line from the list above: ").strip().title()
                         if self.moving_line == "":
                             raise ValueError("Train line cannot be empty.")
                         elif self.moving_line not in list(self.line.lines.keys()):
@@ -37,10 +40,13 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input12 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input12 == "exit":
-                            return
+                        while True:
+                            user_input2 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input2 == "1":
+                                break
+                            elif user_input2 == "0":
+                                return
 
                 while True:
                     try:
@@ -51,10 +57,13 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input13 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input13 == "exit":
-                            return
+                        while True:
+                            user_input3 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input3 == "1":
+                                break
+                            elif user_input3 == "0":
+                                return
 
                 if self.line.lines[self.moving_line]["Number of stations"] == "0":
                     self.stop_per_station = None
@@ -64,8 +73,7 @@ class Train:
                             print(self.line.lines[self.moving_line]
                                   ["Stations"])
                             self.stop_per_station = input(
-                                f"The list above are the stations for '{self.moving_line}'. Please enter the stop duration for each station and use space to separate them: ").strip().split()
-                            # if len(self.stop_per_station) != int(self.line.stations_number):
+                                f"Please enter the stop duration for each station showed on the list above(use space to separate them): ").strip().split()
                             if len(self.stop_per_station) != int(self.line.lines[self.moving_line]["Number of stations"]):
                                 raise ValueError(
                                     f"Expected {int(self.line.lines[self.moving_line]["Number of stations"])} stop duration but recieved {len(self.stop_per_station)}")
@@ -76,10 +84,13 @@ class Train:
                                 break
                         except ValueError as e:
                             print(e)
-                            user_input14 = input(
-                                "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                            if user_input14 == "exit":
-                                return
+                            while True:
+                                user_input4 = input(
+                                    "Enter '0' to exit or '1' to try again: ").strip()
+                                if user_input4 == "1":
+                                    break
+                                elif user_input4 == "0":
+                                    return
 
                 while True:
                     try:
@@ -96,10 +107,13 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input15 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input15 == "exit":
-                            return
+                        while True:
+                            user_input5 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input5 == "1":
+                                break
+                            elif user_input5 == "0":
+                                return
 
                 while True:
                     try:
@@ -110,10 +124,13 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input16 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input16 == "exit":
-                            return
+                        while True:
+                            user_input6 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input6 == "1":
+                                break
+                            elif user_input6 == "0":
+                                return
 
                 while True:
                     try:
@@ -127,10 +144,13 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input17 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input17 == "exit":
-                            return
+                        while True:
+                            user_input7 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input7 == "1":
+                                break
+                            elif user_input7 == "0":
+                                return
 
                 while True:
                     try:
@@ -141,31 +161,40 @@ class Train:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input18 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input18 == "exit":
-                            return
+                        while True:
+                            user_input8 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input8 == "1":
+                                break
+                            elif user_input8 == "0":
+                                return
 
                 if self.id not in self.trains:
-                    self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": f"{self.avg_speed} km/h",
-                                            "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": f"{self.ticket_price} Rial",
-                                            "Capacity": f"{self.capacity} passengers"}
+                    self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": self.avg_speed,
+                                            "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": self.ticket_price,
+                                            "Capacity": self.capacity}
 
                     print(
                         f"\n***** Train with ID '{self.id}' has been successfully added *****\n")
-                    user_input000 = input(
-                        "Press 'Enter' to add another train or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
-                    if user_input000 == "exit":
-                        return
+                    while True:
+                        user_input9 = input(
+                            "Enter '0' to exit or '1' to add another line: ").strip()
+                        if user_input9 == "1":
+                            break
+                        elif user_input9 == "0":
+                            return
                 else:
                     raise ValueError(
                         f"A train with ID '{self.id}' already exists.")
             except ValueError as e:
                 print(e)
-                user_input19 = input(
-                    "Enter 'exit' to return to Employee Panel or press enter to try again: ").strip().lower()
-                if user_input19 == "exit":
-                    break
+                while True:
+                    user_input10 = input(
+                        "Enter '0' to exit or '1' to try again: ").strip()
+                    if user_input10 == "1":
+                        break
+                    elif user_input10 == "0":
+                        return
 
     def editing(self):
         while True:

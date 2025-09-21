@@ -15,10 +15,13 @@ class Line:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input11 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input11 == "exit":
-                            return
+                        while True:
+                            user_input1 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input1 == "1":
+                                break
+                            elif user_input1 == "0":
+                                return
 
                 while True:
                     try:
@@ -29,10 +32,13 @@ class Line:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input12 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input12 == "exit":
-                            return
+                        while True:
+                            user_input2 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input2 == "1":
+                                break
+                            elif user_input2 == "0":
+                                return
                 while True:
                     try:
                         self.destination = input("Destination: ").strip()
@@ -45,10 +51,13 @@ class Line:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input13 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input13 == "exit":
-                            return
+                        while True:
+                            user_input3 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input3 == "1":
+                                break
+                            elif user_input3 == "0":
+                                return
                 while True:
                     try:
                         self.stations_number = input(
@@ -63,10 +72,13 @@ class Line:
                             break
                     except ValueError as e:
                         print(e)
-                        user_input14 = input(
-                            "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                        if user_input14 == "exit":
-                            return
+                        while True:
+                            user_input4 = input(
+                                "Enter '0' to exit or '1' to try again: ").strip()
+                            if user_input4 == "1":
+                                break
+                            elif user_input4 == "0":
+                                return
 
                 if int(self.stations_number) == 0:
                     self.station_names = None
@@ -90,30 +102,39 @@ class Line:
                                 break
                         except ValueError as e:
                             print(e)
-                            user_input15 = input(
-                                "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                            if user_input15 == "exit":
-                                return
+                            while True:
+                                user_input5 = input(
+                                    "Enter '0' to exit or '1' to try again: ").strip()
+                                if user_input5 == "1":
+                                    break
+                                elif user_input5 == "0":
+                                    return
 
                 if self.name.title() not in self.lines:
                     self.lines[self.name.title()] = {"Origin": self.origin.title(), "Destination": self.destination.title(),
                                                      "Number of stations": self.stations_number, "Stations": self.station_names}
                     print(
                         f"\n***** '{self.name}' has been successfully added *****\n")
-                    user_input0 = input(
-                        "Press 'Enter' to add another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
-                    if user_input0 == "exit":
-                        return
+                    while True:
+                        user_input6 = input(
+                            "Enter '0' to exit or '1' to add another line: ").strip()
+                        if user_input6 == "1":
+                            break
+                        elif user_input6 == "0":
+                            return
 
                 else:
                     raise ValueError(
                         f"A line named '{self.name.strip().title()}' already exists.")
             except ValueError as e:
                 print(e)
-                user_input = input(
-                    "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-                if user_input == "exit":
-                    break
+                while True:
+                    user_input7 = input(
+                        "Enter '0' to exit or '1' to try again: ").strip()
+                    if user_input7 == "1":
+                        break
+                    elif user_input7 == "0":
+                        return
 
     def editing(self):
         while True:
@@ -141,9 +162,9 @@ class Line:
                                             print(
                                                 f"\n*****{user_input2} of '{self.name}' has been successfully changed.*****\n")
                                             user_input0 = input(
-                                                "Press 'Enter' to add edit another feature or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                                                "Press 'Enter' to edit another feature or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
                                             if user_input0 == "exit":
-                                                return
+                                                break
                                         else:
                                             raise ValueError(
                                                 f"'{user_input2}' cannot be empty")
@@ -185,19 +206,25 @@ class Line:
                     self.train.remove_trains_by_line(user_input)
                     print(
                         f"\n***** '{user_input}' and trains associated with it have been successfully removed *****\n")
-                    user_input0 = input(
-                        "Press 'Enter' to remove another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
-                    if user_input0 == "exit":
-                        return
+                    while True:
+                        user_input1 = input(
+                            "Enter '0' to exit or '1' to remove another line: ").strip()
+                        if user_input1 == "1":
+                            break
+                        elif user_input1 == "0":
+                            return
                 else:
                     raise ValueError(
                         f"There is no line named '{user_input}'")
             except ValueError as e:
                 print(e)
-                user_input2 = input(
-                    "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
-                if user_input2 == "exit":
-                    break
+                while True:
+                    user_input2 = input(
+                        "Enter '0' to exit or '1' to remove another line: ").strip()
+                    if user_input2 == "1":
+                        break
+                    elif user_input2 == "0":
+                        return
 
     def viewing(self):
         if len(self.lines) == 0:
