@@ -1,4 +1,5 @@
 import re
+
 class Admin:
     def __init__(self):
         self.username = "admin"
@@ -6,26 +7,37 @@ class Admin:
         self.employees = []
         self.user_checker = []
         self.email_checker = []
-        
     
     def log_in(self):
         while True:
+            print("Baraye Bazgasht Be Menu Ghabl '0' Ra Vared Konid")
             user = input("Nam Karbari: ")
+            if user == "0":
+                return False
+            
             pass0 = input("Ramz Obour: ")
+            if pass0 == "0":
+                return False
+            
             print("------------------------")
             if user == self.username and pass0 == self.password:
-                self.admin_panel()
-                break
+                return True
             
             else:
                 print("Nam Karbari ya Ramz Obour Sahih namibashad")
-                failed = input("1. Talash Dobare/ 2. Bazgasht Be Menu Ghabl ")
-                if failed == "1":
-                    print("------------------------")
-                    continue
-                if failed == "2":
-                    print("------------------------")
-                    break
+                while True:
+                    failed = input("1. Talash Dobare/ 2. Bazgasht Be Menu Ghabl ")
+                    if failed == "1":
+                        print("------------------------")
+                        break
+                    elif failed == "2":
+                        print("------------------------")
+                        return False
+                    else:
+                        print("Vorodi Sahih Nist, Dobare Talash Konid!")
+                        print("------------------------")
+                        continue
+
         
     def admin_panel(self):
         while True:
@@ -137,6 +149,7 @@ class Admin:
             
     def remove_employee(self):
         while True:
+            print("Baray Bazgasht Be Menu Ghabl '0' Ra vared konid")
             wanted = input("username: ")
             if wanted == "0":
                 return
@@ -171,17 +184,18 @@ class Admin:
                 escape = input("Baraye Bazgash Adad '0' Ra Vared Konid: ")
                 if escape == "0":
                     break
-                print("------------------------")
+                else:
+                    print("Vorodi Sahih Nist, Dobare Talash Konid!")
+                    print("------------------------")
                 
             else:
                 for i, emp in enumerate(self.employees, 1):
                     print(f"{i}. Name: {emp['name'].title()} | Family: {emp['family'].title()} | Email: {emp['email']} | Username: {emp['username']} | Password: {emp['password']}")
+                    print("------------------------")
                 escape = input("Baraye Bazgash Adad '0' Ra Vared Konid: ")
                 if escape == "0":
                     print("------------------------")
                     break
         
-
-    
     def exit_from(self):
         return

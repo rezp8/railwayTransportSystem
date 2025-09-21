@@ -19,9 +19,9 @@ def start_menu():
                 
         elif choose == "2":
             #waiting for published
-            employee_login(admin.employees)
-            print("Karmand Khosh oomadi!")
-            print("Coming Soon")
+            if employee_login(admin.employees):
+                print("Karmand Khosh oomadi!")
+                print("Coming Soon")
             
         elif choose == "3":
             #waiting for published
@@ -44,8 +44,6 @@ def start_menu():
                     print("------------------------")  
                 
                     
-            
-
         
 if __name__ == "__main__":
     start_menu()   
