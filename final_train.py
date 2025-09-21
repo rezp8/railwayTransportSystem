@@ -25,7 +25,7 @@ class Train:
 
                 while True:
                     try:
-                        print(list(self.line.lines.keys()))
+                        print(sorted(list(self.line.lines.keys())))
                         self.moving_line = input(
                             "Please choose 'Train Line' from the list above: ").strip().title()
                         if self.moving_line == "":
@@ -65,9 +65,10 @@ class Train:
                                   ["Stations"])
                             self.stop_per_station = input(
                                 f"The list above are the stations for '{self.moving_line}'. Please enter the stop duration for each station and use space to separate them: ").strip().split()
-                            if len(self.stop_per_station) != int(self.line.stations_number):
+                            # if len(self.stop_per_station) != int(self.line.stations_number):
+                            if len(self.stop_per_station) != int(self.line.lines[self.moving_line]["Number of stations"]):
                                 raise ValueError(
-                                    f"Expected {int(self.line.lines[self.moving_line]["Number of stations"])} but recieved {len(self.stop_per_station)}")
+                                    f"Expected {int(self.line.lines[self.moving_line]["Number of stations"])} stop duration but recieved {len(self.stop_per_station)}")
                             # for number in self.stop_per_station:
                             #     if number.isdecim
 
@@ -133,7 +134,7 @@ class Train:
 
                 while True:
                     try:
-                        self.id = input("Train ID: ").strip()
+                        self.id = input("Train ID: ").title().strip()
                         if self.id == "":
                             raise ValueError("Train ID cannot be empty.")
                         else:
@@ -146,7 +147,7 @@ class Train:
                             return
 
                 if self.id not in self.trains:
-                    self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": f"{self.avg_speed} km",
+                    self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": f"{self.avg_speed} km/h",
                                             "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": f"{self.ticket_price} Rial",
                                             "Capacity": f"{self.capacity} passengers"}
 
@@ -169,6 +170,9 @@ class Train:
     def editing(self):
         while True:
             try:
+                if len(self.trains) == 0:
+                    print("No train found to edit.")
+                    break
                 user_input = input(
                     "Enter the ID of the train you would like to edit: ").strip().title()
                 if user_input in self.trains:
@@ -220,6 +224,9 @@ class Train:
     def removing(self):
         while True:
             try:
+                if len(self.trains) == 0:
+                    print("No train found to remove.")
+                    break
                 user_input = input(
                     "Enter the ID of the train you would like to remove: ").strip().title()
                 if user_input in self.trains:
@@ -231,7 +238,8 @@ class Train:
                     if user_input0 == "exit":
                         return
                 else:
-                    raise ValueError(f"There is no line named '{user_input}'")
+                    raise ValueError(
+                        f"Train with ID '{user_input}' doesn't exist.")
             except ValueError as e:
                 print(e)
                 user_input2 = input(

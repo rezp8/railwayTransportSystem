@@ -76,13 +76,9 @@ class Line:
 
                             self.station_names = input(
                                 f"Please enter names of stations and use space to separate them\n***For names with more than one part please use '_': ").strip().title().split()
-
-                            if int(self.stations_number) != 0 and len(self.station_names) == 0:
+                            if len(self.station_names) != int(self.stations_number):
                                 raise ValueError(
-                                    f"Expected {int(self.stations_number)} but recieved {len(self.station_names)}")
-                            elif len(self.station_names) != int(self.stations_number):
-                                raise ValueError(
-                                    f"Expected {int(self.stations_number)} but recieved {len(self.station_names)}")
+                                    f"Expected {int(self.stations_number)} station names but recieved {len(self.station_names)}")
                             elif len(set(self.station_names)) < len(self.station_names):
                                 raise ValueError(
                                     "Name of stations cannot be repetetive")
@@ -122,6 +118,9 @@ class Line:
     def editing(self):
         while True:
             try:
+                if len(self.lines) == 0:
+                    print("No line found to edit.")
+                    break
                 user_input = input(
                     "Enter the name of the line you would like to edit: ").strip().title()
                 if user_input in self.lines:
@@ -142,7 +141,7 @@ class Line:
                                             print(
                                                 f"\n*****{user_input2} of '{self.name}' has been successfully changed.*****\n")
                                             user_input0 = input(
-                                                "Press 'Enter' to add another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                                                "Press 'Enter' to add edit another feature or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
                                             if user_input0 == "exit":
                                                 return
                                         else:
@@ -176,6 +175,9 @@ class Line:
     def removing(self):
         while True:
             try:
+                if len(self.lines) == 0:
+                    print("No line found to remove.")
+                    break
                 user_input = input(
                     "Enter the name of the line you would like to remove: ").strip().title()
                 if user_input in self.lines:
@@ -188,7 +190,8 @@ class Line:
                     if user_input0 == "exit":
                         return
                 else:
-                    raise ValueError(f"There is no line named '{user_input}'")
+                    raise ValueError(
+                        f"There is no line named '{user_input}'")
             except ValueError as e:
                 print(e)
                 user_input2 = input(
