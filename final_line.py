@@ -59,9 +59,6 @@ class Line:
                         elif not self.stations_number.isdecimal():
                             raise ValueError(
                                 "Number of stations must be a whole number equal or greater than zero.")
-                        # elif int(self.stations_number) < 0:
-                        #     raise ValueError(
-                        #         "Number of stations cannot be a negative number")
                         else:
                             break
                     except ValueError as e:
@@ -92,7 +89,7 @@ class Line:
                             for station in self.station_names:
                                 if station == self.origin.title() or station == self.destination.title():
                                     raise ValueError(
-                                        "Station name cannot be the same as 'Origin' or 'Destination' of the line.")
+                                        "Station name cannot be the same as 'Origin' or 'Destination'.")
                             else:
                                 break
                         except ValueError as e:
@@ -106,18 +103,15 @@ class Line:
                     self.lines[self.name.title()] = {"Origin": self.origin.title(), "Destination": self.destination.title(),
                                                      "Number of stations": self.stations_number, "Stations": self.station_names}
                     print(
-                        f"\n***** Line '{self.name}' has been successfully added *****\n")
-                    break
-                    # user_input0 = input(
-                    #     "Press 'Enter' to add another line or enter 'exit' to return to Employee Panel:\n>>>").lower()
-                    # if user_input0 == "exit":
-                    #     exit()
-                    # else:
-                    #     continue
+                        f"\n***** '{self.name}' has been successfully added *****\n")
+                    user_input0 = input(
+                        "Press 'Enter' to add another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                    if user_input0 == "exit":
+                        return
 
                 else:
                     raise ValueError(
-                        f"A line named '{self.name}' already exists.")
+                        f"A line named '{self.name.strip().title()}' already exists.")
             except ValueError as e:
                 print(e)
                 user_input = input(
@@ -146,8 +140,11 @@ class Line:
                                         if user_input3 != "":
                                             self.lines[user_input][user_input2] = user_input3
                                             print(
-                                                f"\n*****{user_input2} of Line '{self.name}' has been successfully changed.*****\n")
-                                            return
+                                                f"\n*****{user_input2} of '{self.name}' has been successfully changed.*****\n")
+                                            user_input0 = input(
+                                                "Press 'Enter' to add another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                                            if user_input0 == "exit":
+                                                return
                                         else:
                                             raise ValueError(
                                                 f"'{user_input2}' cannot be empty")
@@ -185,16 +182,19 @@ class Line:
                     self.lines.pop(user_input)
                     self.train.remove_trains_by_line(user_input)
                     print(
-                        f"\n***** Line '{user_input}' and trains associated with it have been successfully removed *****\n")
-                    break
+                        f"\n***** '{user_input}' and trains associated with it have been successfully removed *****\n")
+                    user_input0 = input(
+                        "Press 'Enter' to remove another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                    if user_input0 == "exit":
+                        return
                 else:
                     raise ValueError(f"There is no line named '{user_input}'")
             except ValueError as e:
                 print(e)
-            user_input2 = input(
-                "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
-            if user_input2 == "exit":
-                break
+                user_input2 = input(
+                    "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
+                if user_input2 == "exit":
+                    break
 
     def viewing(self):
         if len(self.lines) == 0:

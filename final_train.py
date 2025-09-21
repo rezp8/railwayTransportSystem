@@ -1,4 +1,4 @@
-from sepideh_line import Line
+from final_line import Line
 
 
 class Train:
@@ -11,7 +11,7 @@ class Train:
             try:
                 while True:
                     try:
-                        self.name = input("Train name: ").strip()
+                        self.name = input("Train name: ").strip().title()
                         if self.name == "":
                             raise ValueError("Train name cannot be empty.")
                         else:
@@ -64,11 +64,8 @@ class Train:
                             print(self.line.lines[self.moving_line]
                                   ["Stations"])
                             self.stop_per_station = input(
-                                f"The list above are the stations defined for line '{self.moving_line}'. Please enter the stop duration for each station and use space to separate them: ").strip().split()
-                            if len(self.stop_per_station) == 0:
-                                raise ValueError(
-                                    f"Expected {int(self.line.lines[self.moving_line]["Number of stations"])} but received {len(self.stop_per_station)}")
-                            elif len(self.stop_per_station) != int(self.line.stations_number):
+                                f"The list above are the stations for '{self.moving_line}'. Please enter the stop duration for each station and use space to separate them: ").strip().split()
+                            if len(self.stop_per_station) != int(self.line.stations_number):
                                 raise ValueError(
                                     f"Expected {int(self.line.lines[self.moving_line]["Number of stations"])} but recieved {len(self.stop_per_station)}")
                             # for number in self.stop_per_station:
@@ -148,23 +145,20 @@ class Train:
                         if user_input18 == "exit":
                             return
 
-                if self.id.title() not in self.trains:
-                    self.trains[self.id.title()] = {"Name": self.name.title(), "Line": self.moving_line.title(), "Average speed": f"{self.avg_speed} km",
-                                                    "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": f"{self.ticket_price} Rial",
-                                                    "Capacity": f"{self.capacity} passengers"}
+                if self.id not in self.trains:
+                    self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": f"{self.avg_speed} km",
+                                            "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": f"{self.ticket_price} Rial",
+                                            "Capacity": f"{self.capacity} passengers"}
 
                     print(
                         f"\n***** Train with ID '{self.id}' has been successfully added *****\n")
-                    break
-                    # user_input3 = input(
-                    #     "Press 'Enter' to add another line or enter 'exit' to return to Employee Panel: ").lower()
-                    # if user_input3 == "exit":
-                    #     exit()
-                    # else:
-                    #     continue
+                    user_input000 = input(
+                        "Press 'Enter' to add another train or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                    if user_input000 == "exit":
+                        return
                 else:
                     raise ValueError(
-                        f"A train with ID '{self.name}' already exists.")
+                        f"A train with ID '{self.id}' already exists.")
             except ValueError as e:
                 print(e)
                 user_input19 = input(
@@ -232,15 +226,18 @@ class Train:
                     self.trains.pop(user_input)
                     print(
                         f"\n***** Train '{self.id}' has been successfully removed *****\n")
-                    break
+                    user_input0 = input(
+                        "Press 'Enter' to remove another line or enter 'exit' to return to Employee Panel:\n>>>").strip().lower()
+                    if user_input0 == "exit":
+                        return
                 else:
                     raise ValueError(f"There is no line named '{user_input}'")
             except ValueError as e:
                 print(e)
-            user_input2 = input(
-                "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
-            if user_input2 == "exit":
-                break
+                user_input2 = input(
+                    "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
+                if user_input2 == "exit":
+                    break
 
     def viewing(self):
         if len(self.trains) == 0:
