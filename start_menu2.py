@@ -1,10 +1,10 @@
 from admin import Admin
-from employee import employee_login
+from final_employee_panel import employee_login
 admin = Admin()
 
 def start_menu():
     while True:
-        print("Khosh Amadid!")
+        print("Khosh Amadid jadids!")
         print("1. Admin")
         print("2. Karmand")
         print("3. Karbar")
@@ -18,10 +18,10 @@ def start_menu():
                 admin.admin_panel()
                 
         elif choose == "2":
-            #waiting for published
-            if employee_login(admin.employees):
-                print("Karmand Khosh oomadi!")
-                print("Coming Soon")
+
+            employee_login(admin.employees)
+                
+
             
         elif choose == "3":
             #waiting for published
@@ -46,4 +46,4 @@ def start_menu():
                     
         
 if __name__ == "__main__":
-    start_menu()
+    start_menu()   

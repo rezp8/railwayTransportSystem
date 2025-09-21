@@ -1,45 +1,69 @@
 from final_line import Line
 from final_train import Train
+from saraemployee_class import Employee
 
+def employee_login(employees):
+    while True:
+        print("Welcome Employee")
+        username = Employee.safe_input("Username (or 0 to return to Start Menu): ")
+        if username == "0":
+            return
+        password = Employee.safe_input("Enter your password: ")
+        for emp in employees:   
+            if emp["username"] == username and emp["password"] == password:
+                print(f"Welcome {username}!\n")
+                employee_panel()
+                break
+        else:
+            print("Invalid username or password. Please try again.\n")
 
 def employee_panel():
-    print("\nWelcome employee\n")
-    # we can use employee's name to welcome them
     train = Train(None)
     line = Line(train)
     train.line = line
+
     while True:
         try:
-            print("\nYou are in Employee Panel.\nPlease choose a number from the list below:\n1.Adding a line\n2.Updating a line\n3.Removing a line\n4.Viewing all lines\n5.Adding a train\n6.Updating a train\n7.Removing a train\n8.Viewing all trains\n9.Exit your account")
-            user_input = input(">>>").strip()
-            reference = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-            if user_input in reference:
-                if user_input == "1":
-                    line.creating()
-                elif user_input == "2":
-                    line.editing()
-                elif user_input == "3":
-                    line.removing()
-                elif user_input == "4":
-                    line.viewing()
-                elif user_input == "5":
-                    train.creating()
-                elif user_input == "6":
-                    train.editing()
-                elif user_input == "7":
-                    train.removing()
-                elif user_input == "8":
-                    train.viewing()
-                elif user_input == "9":
-                    pass
-            else:
+            print("\nYou are in Employee Panel.")
+            print("Please choose a number from the list below:")
+            print("1. Adding a line")
+            print("2. Updating a line")
+            print("3. Removing a line")
+            print("4. Viewing all lines")
+            print("5. Adding a train")
+            print("6. Updating a train")
+            print("7. Removing a train")
+            print("8. Viewing all trains")
+            print("9. Exit your account (Logout)")
+            
+            user_input = input(">>> ").strip()
+            reference = [str(i) for i in range(1, 10)]
+            
+            if user_input not in reference:
                 raise ValueError(f"Option '{user_input}' doesn't exist.")
+            
+            if user_input == "1":
+                line.creating()
+            elif user_input == "2":
+                line.editing()
+            elif user_input == "3":
+                line.removing()
+            elif user_input == "4":
+                line.viewing()
+            elif user_input == "5":
+                train.creating()
+            elif user_input == "6":
+                train.editing()
+            elif user_input == "7":
+                train.removing()
+            elif user_input == "8":
+                train.viewing()
+            elif user_input == "9":
+                print("Logging out and returning to Employee Login...\n")
+                return
+
         except ValueError as e:
             print(e)
-            user_input2 = input(
-                "Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
+            user_input2 = input("Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
             if user_input2 == "exit":
                 break
-
-
-employee_panel()
