@@ -1,27 +1,24 @@
 from admin import Admin
-from employee import employee_login
+from final_employee_panel import employee_login
 admin = Admin()
 
 def start_menu():
     while True:
-        print("Khosh Amadid!")
+        print("Welcome!")
         print("1. Admin")
-        print("2. Karmand")
-        print("3. Karbar")
-        print("4. Khoroj")
+        print("2. Employee")
+        print("3. User")
+        print("4. Exit")
         print("------------------------")
-        choose = input("Koja Beram? ")
+        choose = input("Select an option: ")
         
         if choose == "1":
-            print("Admin Khosh oomadi!")
+            print("Welcome Admin!")
             if admin.log_in():
                 admin.admin_panel()
                 
         elif choose == "2":
-            #waiting for published
-            if employee_login(admin.employees):
-                print("Karmand Khosh oomadi!")
-                print("Coming Soon")
+            employee_login(admin.employees)
             
         elif choose == "3":
             #waiting for published
@@ -29,12 +26,12 @@ def start_menu():
             print("Coming Soon")
             
         elif choose == "4":
-            print("Khoda Negahdar")
+            print("Goodbye!")
             break
         else:
             while True:
-                print("Vorodi Dade Shode Dorost Namibashad")
-                failed = input("1. Talash Dobare/ 2. Khoroj Az Barname ")
+                print("Invalid input")
+                failed = input("1. Try again/ 2. Exit program ")
                 if failed == "1":
                     print("------------------------")
                     break

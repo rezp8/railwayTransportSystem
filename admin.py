@@ -10,12 +10,12 @@ class Admin:
     
     def log_in(self):
         while True:
-            print("Baraye Bazgasht Be Menu Ghabl '0' Ra Vared Konid")
-            user = input("Nam Karbari: ")
+            print("Enter '0' to return to the previous menu.")
+            user = input("Username: ")
             if user == "0":
                 return False
             
-            pass0 = input("Ramz Obour: ")
+            pass0 = input("Password: ")
             if pass0 == "0":
                 return False
             
@@ -24,9 +24,9 @@ class Admin:
                 return True
             
             else:
-                print("Nam Karbari ya Ramz Obour Sahih namibashad")
+                print("Invalid username or password.")
                 while True:
-                    failed = input("1. Talash Dobare/ 2. Bazgasht Be Menu Ghabl ")
+                    failed = input("1. Try Again / 2. Return to Previous Menu: ")
                     if failed == "1":
                         print("------------------------")
                         break
@@ -34,29 +34,29 @@ class Admin:
                         print("------------------------")
                         return False
                     else:
-                        print("Vorodi Sahih Nist, Dobare Talash Konid!")
+                        print("Invalid input! Please try again.")
                         print("------------------------")
                         continue
 
         
     def admin_panel(self):
         while True:
-            print("Admin Ba Movafaghiat Vared Shodi")
-            print("1. Ezafe Kardan Karmand Ghatar")
-            print("2. Hazf Karmand Ghatar")
-            print("3. List Karmandha")
-            print("4. Khorooj!")
+            print("Admin login successful.")
+            print("1. Add Train Employee")
+            print("2. Remove Train Employee")
+            print("3. View Employee List")
+            print("4. Exit")
             print("------------------------")
             
-            choose = input("Koja Beram? ")
+            choose = input("Select an option: ")
             if choose == "1":
-                print("Ezafe Kardan Karmand")
+                print("Adding Employee")
                 self.add_employee()
             elif choose == "2":
-                print("Hazf Karmand")
+                print("Removing Employee")
                 self.remove_employee()
             elif choose == "3":
-                print("List Karmandha")
+                print("Employee List")
                 self.view_list()
             elif choose == "4":
                 print("------------------------")
@@ -64,8 +64,8 @@ class Admin:
             
             else:
                 while True:
-                    print("Vorodi Dade Shode Dorost Namibashad")
-                    failed = input("1. Talash Dobare/ 2. Bazgasht Be Menu Ghabl ")
+                    print("Invalid input!")
+                    failed = input("1. Try Again / 2. Return to Previous Menu: ")
                     if failed == "1":
                         print("------------------------")
                         break
@@ -77,56 +77,56 @@ class Admin:
             
     def add_employee(self):
         while True:
-            print("Baray Bazgasht Be Menu Ghabl '0' Ra vared konid")
+            print("Enter '0' to return to the previous menu.")
             
             while True:
-                n = input("name: ").lower()
+                n = input("First Name: ").lower()
                 if n == "0":
                     return
                 if not n.isalpha() or len(n) < 3:
-                    print("Esm Bayad Faghat Horoof Bashad Va Hadaghal 3 Harf Dashte Bashad")
+                    print("Name must contain only letters and be at least 3 characters long.")
                     continue
                 break
             
             while True:
-                f = input("family: ").lower()
+                f = input("Last Name: ").lower()
                 if f == "0":
                     return
                 if not f.isalpha() or len(f) < 3:
-                    print("famil Bayad Faghat Horoof Bashad Va Hadaghal 3 Harf Dashte Bashad")
+                    print("Family name must contain only letters and be at least 3 characters long.")
                     continue
                 break
             
             while True:
-                e = input("email: ").lower()
+                e = input("Email: ").lower()
                 if e == "0":
                     return
-                if not("@" in e and re.search(r"\.com$", e) and len(e) > 8):
-                    print("Email Motabar Namibashad")
+                if not re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$", e):
+                    print("Invalid email format.")
                     continue
                 if e in self.email_checker:
-                    print("Email Tekrari Ast")
+                    print("Email already exists.")
                     continue
                 break
             
             while True:
-                u = input("username: ").lower()
+                u = input("Username: ").lower()
                 if u == "0":
                     return
                 if len(u) < 4 or not u.isalnum():
-                    print("Username Bayad Hadaghal 4 Harf Va Faghat Horoof Ya Adad Bashad")
+                    print("Username must be at least 4 characters and contain only letters or numbers.")
                     continue
                 if u in self.user_checker:
-                    print("Username Tekrari Ast")
+                    print("Username already exists.")
                     continue
                 break
             
             while True:
-                p = input("password: ")
+                p = input("Password: ")
                 if p == "0":
                     return
                 if len(p) < 6 or not re.search(r"\d", p):
-                    print("Password Bayad Hadaghal 6 Ragham Bashad")
+                    print("Password must be at least 6 characters and include a number.")
                     continue
                 break
             
@@ -134,23 +134,23 @@ class Admin:
             self.user_checker.append(u)
             self.email_checker.append(e)
             self.employees.append(new_dict)
-            print("Karmand Ba Movafaghiat Ezaf Shod!")
+            print("Employee added successfully!")
             
             while True:
                 print("------------------------")
-                again = input("1. Ezafe kardan Karmand Jadid/ 2. Khorooj!: ")
+                again = input("1. Add another employee / 2. Exit: ")
                 if again == "1":
                     break
                 elif again == "2":
                     return    
                 else:
-                    print("vorodi Sahih Nist, Dobare Talash Konid!")
+                    print("Invalid input. Please try again.")
                     continue
             
     def remove_employee(self):
         while True:
-            print("Baray Bazgasht Be Menu Ghabl '0' Ra vared konid")
-            wanted = input("username: ")
+            print("Enter '0' to return to the previous menu.")
+            wanted = input("Username to remove: ")
             if wanted == "0":
                 return
             
@@ -159,40 +159,40 @@ class Admin:
                 if wanted == emp["username"]:
                     self.employees.remove(emp)
                     self.user_checker.remove(emp["username"])
-                    print("karmand Ba Movafaghiat Hazf Shod!")
+                    print("Employee removed successfully!")
                     found = True
                     break
                 
             if not found:
-                print("Karmand Peyda Nashod!")
+                print("Employee not found.")
                 
             while True:
                     print("------------------------")
-                    again = input("1. Hazf kardan Karmand / 2. Khorooj!: ")
+                    again = input("1. Remove another employee / 2. Exit: ")
                     if again == "1":
                         break
                     elif again == "2":
                         return    
                     else:
-                        print("vorodi Sahih Nist, Dobare Talash Konid!")
+                        print("Invalid input. Please try again.")
                         continue
     
     def view_list(self):
         while True:
             if not self.employees:
-                print("Hich karmandi Hanoz Sabt Nashode")
-                escape = input("Baraye Bazgash Adad '0' Ra Vared Konid: ")
+                print("No employees registered yet.")
+                escape = input("Enter '0' to return to the previous menu.")
                 if escape == "0":
                     break
                 else:
-                    print("Vorodi Sahih Nist, Dobare Talash Konid!")
+                    print("Invalid input. Please try again.")
                     print("------------------------")
                 
             else:
                 for i, emp in enumerate(self.employees, 1):
                     print(f"{i}. Name: {emp['name'].title()} | Family: {emp['family'].title()} | Email: {emp['email']} | Username: {emp['username']} | Password: {emp['password']}")
                     print("------------------------")
-                escape = input("Baraye Bazgash Adad '0' Ra Vared Konid: ")
+                escape = input("Enter '0' to return to the previous menu.")
                 if escape == "0":
                     print("------------------------")
                     break
