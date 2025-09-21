@@ -2,20 +2,23 @@ from final_line import Line
 from final_train import Train
 from saraemployee_class import Employee
 
+
 def employee_login(employees):
     while True:
         print("Welcome Employee")
-        username = Employee.safe_input("Username (or 0 to return to Start Menu): ")
+        username = Employee.safe_input(
+            "Username (or 0 to return to Start Menu): ")
         if username == "0":
             return
         password = Employee.safe_input("Enter your password: ")
-        for emp in employees:   
+        for emp in employees:
             if emp["username"] == username and emp["password"] == password:
                 print(f"Welcome {username}!\n")
                 employee_panel()
                 break
         else:
             print("Invalid username or password. Please try again.\n")
+
 
 def employee_panel():
     train = Train(None)
@@ -35,13 +38,13 @@ def employee_panel():
             print("7. Removing a train")
             print("8. Viewing all trains")
             print("9. Exit your account (Logout)")
-            
+
             user_input = input(">>> ").strip()
             reference = [str(i) for i in range(1, 10)]
-            
+
             if user_input not in reference:
                 raise ValueError(f"Option '{user_input}' doesn't exist.")
-            
+
             if user_input == "1":
                 line.creating()
             elif user_input == "2":
@@ -64,6 +67,12 @@ def employee_panel():
 
         except ValueError as e:
             print(e)
-            user_input2 = input("Press 'Enter' to try again or enter 'exit' to return to Employee Panel: ").strip().lower()
-            if user_input2 == "exit":
-                break
+            while True:
+                user_input1 = input(
+                    "Enter '0' to exit or '1' to try again: ").strip()
+                if user_input1 == "1":
+                    break
+                elif user_input1 == "0":
+                    return
+                else:
+                    print("Invalid option. Please choose either '0' or '1'.")
