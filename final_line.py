@@ -15,7 +15,6 @@ class Line:
     def creating(self):
         while True:
             try:
-
                 while True:
                     try:
                         self.name = input("Line name: ").strip()
@@ -269,3 +268,4 @@ class Line:
                 break
             else:
                 print("Invalid option.")
+
