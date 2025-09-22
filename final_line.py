@@ -1,4 +1,4 @@
-from final_employee_panel import safe_input
+
 class Line:
     def __init__(self, train):
         self.lines = {}
@@ -233,3 +233,11 @@ class Line:
                 break
             else:
                 print("Invalid option.")
+def safe_input(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value != "":
+            return value
+        else:
+            print("Input must be non-empty. Please try again.")
+
