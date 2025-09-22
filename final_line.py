@@ -3,6 +3,15 @@ class Line:
         self.lines = {}
         self.train = train
 
+    @staticmethod
+    def safe_input(prompt):
+        while True:
+            value = input(prompt).strip()
+            if value != "":
+                return value
+            else:
+                print("Input must be non-empty. Please try again.")
+
     def creating(self):
         while True:
             try:

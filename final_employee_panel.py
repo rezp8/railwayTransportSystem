@@ -1,16 +1,16 @@
 from final_line import Line
 from final_train import Train
-from saraemployee_class import Employee
+
 
 
 def employee_login(employees):
     while True:
         print("Welcome Employee")
-        username = Employee.safe_input(
+        username = Line.safe_input(
             "Username (or 0 to return to Start Menu): ")
         if username == "0":
             return
-        password = Employee.safe_input("Enter your password: ")
+        password = Line.safe_input("Enter your password: ")
         for emp in employees:
             if emp["username"] == username and emp["password"] == password:
                 print(f"Welcome {username}!\n")
@@ -20,10 +20,12 @@ def employee_login(employees):
             print("Invalid username or password. Please try again.\n")
 
 
+train = Train(None)
+line = Line(train)
+train.line = line
+
 def employee_panel():
-    train = Train(None)
-    line = Line(train)
-    train.line = line
+
 
     while True:
         try:
@@ -68,7 +70,7 @@ def employee_panel():
         except ValueError as e:
             print(e)
             while True:
-                user_input1 = input(
+                user_input1 = Line.safe_input(
                     "Enter '0' to exit or '1' to try again: ").strip()
                 if user_input1 == "1":
                     break
