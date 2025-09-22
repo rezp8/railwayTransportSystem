@@ -6,11 +6,10 @@ from final_train import Train
 def employee_login(employees):
     while True:
         print("Welcome Employee")
-        username = Line.safe_input(
-            "Username (or 0 to return to Start Menu): ")
+        username = safe_input("Username (or 0 to return to Start Menu): ")
         if username == "0":
             return
-        password = Line.safe_input("Enter your password: ")
+        password = safe_input("Enter your password: ")
         for emp in employees:
             if emp["username"] == username and emp["password"] == password:
                 print(f"Welcome {username}!\n")
@@ -70,7 +69,7 @@ def employee_panel():
         except ValueError as e:
             print(e)
             while True:
-                user_input1 = Line.safe_input(
+                user_input1 = safe_input(
                     "Enter '0' to exit or '1' to try again: ").strip()
                 if user_input1 == "1":
                     break
@@ -78,3 +77,11 @@ def employee_panel():
                     return
                 else:
                     print("Invalid option. Please choose either '0' or '1'.")
+
+def safe_input(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value != "":
+            return value
+        else:
+            print("Input must be non-empty. Please try again.")

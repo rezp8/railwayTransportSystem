@@ -1,64 +1,32 @@
+from final_employee_panel import safe_input
 class Line:
     def __init__(self, train):
         self.lines = {}
         self.train = train
 
-    @staticmethod
-    def safe_input(prompt):
-        while True:
-            value = input(prompt).strip()
-            if value != "":
-                return value
-            else:
-                print("Input must be non-empty. Please try again.")
 
     def creating(self):
         while True:
             try:
 
                 while True:
-                    try:
-                        self.name = input("Line name: ").strip()
-                        if self.name == "":
-                            raise ValueError("Name cannot be empty")
-                        else:
-                            break
-                    except ValueError as e:
-                        print(e)
-                        while True:
-                            user_input1 = input(
-                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                            if user_input1 == "1":
-                                break
-                            elif user_input1 == "0":
-                                return
-                            else:
-                                print("Invalid option.")
+                    self.name = safe_input("Line name:(Enter '0' to go back to employee panel ) ").strip()
+                    if self.name == "0":
+                        return
+                    else:
+                        break
+
+                while True:
+                    self.origin = safe_input("Origin: ")
+                    if self.origin == "0":
+                        return
+                    else:
+                        break
 
                 while True:
                     try:
-                        self.origin = input("Origin: ").strip()
-                        if self.origin == "":
-                            raise ValueError("Origin cannot be empty")
-                        else:
-                            break
-                    except ValueError as e:
-                        print(e)
-                        while True:
-                            user_input2 = input(
-                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                            if user_input2 == "1":
-                                break
-                            elif user_input2 == "0":
-                                return
-                            else:
-                                print("Invalid option.")
-                while True:
-                    try:
-                        self.destination = input("Destination: ").strip()
-                        if self.destination == "":
-                            raise ValueError("Destination cannot be empty")
-                        elif self.destination.lower() == self.origin.lower():
+                        self.destination = safe_input("Destination: ")
+                        if self.destination.lower() == self.origin.lower():
                             raise ValueError(
                                 "'Destination' cannot be the same as 'Origin'")
                         else:
@@ -67,7 +35,7 @@ class Line:
                         print(e)
                         while True:
                             user_input3 = input(
-                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
+                                "Enter '0' to go back to Employee Panel or '1' to try again: ")
                             if user_input3 == "1":
                                 break
                             elif user_input3 == "0":
@@ -76,12 +44,9 @@ class Line:
                                 print("Invalid option.")
                 while True:
                     try:
-                        self.stations_number = input(
+                        self.stations_number = safe_input(
                             "Number of stations: ").strip()
-                        if self.stations_number == "":
-                            raise ValueError(
-                                "Number of stations cannot be empty")
-                        elif not self.stations_number.isdecimal():
+                        if not self.stations_number.isdecimal():
                             raise ValueError(
                                 "Number of stations must be a whole number equal or greater than zero.")
                         else:
@@ -90,7 +55,7 @@ class Line:
                         print(e)
                         while True:
                             user_input4 = input(
-                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
+                                "Enter '0' to go back to Employee Panel or '1' to try again: ")
                             if user_input4 == "1":
                                 break
                             elif user_input4 == "0":
