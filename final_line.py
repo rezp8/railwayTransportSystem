@@ -15,22 +15,25 @@ class Line:
     def creating(self):
         while True:
             try:
+
                 while True:
                     try:
                         self.name = input("Line name: ").strip()
                         if self.name == "":
-                            raise ValueError("Line name cannot be empty")
+                            raise ValueError("Name cannot be empty")
                         else:
                             break
                     except ValueError as e:
                         print(e)
                         while True:
                             user_input1 = input(
-                                "Enter '0' to exit or '1' to try again: ").strip()
+                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                             if user_input1 == "1":
                                 break
                             elif user_input1 == "0":
                                 return
+                            else:
+                                print("Invalid option.")
 
                 while True:
                     try:
@@ -43,11 +46,13 @@ class Line:
                         print(e)
                         while True:
                             user_input2 = input(
-                                "Enter '0' to exit or '1' to try again: ").strip()
+                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                             if user_input2 == "1":
                                 break
                             elif user_input2 == "0":
                                 return
+                            else:
+                                print("Invalid option.")
                 while True:
                     try:
                         self.destination = input("Destination: ").strip()
@@ -62,11 +67,13 @@ class Line:
                         print(e)
                         while True:
                             user_input3 = input(
-                                "Enter '0' to exit or '1' to try again: ").strip()
+                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                             if user_input3 == "1":
                                 break
                             elif user_input3 == "0":
                                 return
+                            else:
+                                print("Invalid option.")
                 while True:
                     try:
                         self.stations_number = input(
@@ -83,11 +90,13 @@ class Line:
                         print(e)
                         while True:
                             user_input4 = input(
-                                "Enter '0' to exit or '1' to try again: ").strip()
+                                "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                             if user_input4 == "1":
                                 break
                             elif user_input4 == "0":
                                 return
+                            else:
+                                print("Invalid option.")
 
                 if int(self.stations_number) == 0:
                     self.station_names = None
@@ -113,11 +122,13 @@ class Line:
                             print(e)
                             while True:
                                 user_input5 = input(
-                                    "Enter '0' to exit or '1' to try again: ").strip()
+                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                                 if user_input5 == "1":
                                     break
                                 elif user_input5 == "0":
                                     return
+                                else:
+                                    print("Invalid option.")
 
                 if self.name.title() not in self.lines:
                     self.lines[self.name.title()] = {"Origin": self.origin.title(), "Destination": self.destination.title(),
@@ -126,24 +137,28 @@ class Line:
                         f"\n***** '{self.name}' has been successfully added *****\n")
                     while True:
                         user_input6 = input(
-                            "Enter '0' to exit or '1' to add another line: ").strip()
+                            "Enter '0' to go back to Employee Panel or '1' to add another line: ").strip()
                         if user_input6 == "1":
                             break
                         elif user_input6 == "0":
                             return
+                        else:
+                            print("Invalid option.")
 
                 else:
                     raise ValueError(
-                        f"A line named '{self.name.strip().title()}' already exists.")
+                        f"A line named '{self.name.strip()}' already exists. Line names cannot be repetetive.")
             except ValueError as e:
                 print(e)
                 while True:
                     user_input7 = input(
-                        "Enter '0' to exit or '1' to try again: ").strip()
+                        "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                     if user_input7 == "1":
                         break
                     elif user_input7 == "0":
                         return
+                    else:
+                        print("Invalid option.")
 
     def editing(self):
         while True:
@@ -217,11 +232,14 @@ class Line:
                         f"\n***** '{user_input}' and trains associated with it have been successfully removed *****\n")
                     while True:
                         user_input1 = input(
-                            "Enter '0' to exit or '1' to remove another line: ").strip()
+                            "Enter '0' to go back to Employee Panel or '1' to remove another line: ").strip()
                         if user_input1 == "1":
                             break
                         elif user_input1 == "0":
                             return
+                        else:
+                            print("Invalid option.")
+
                 else:
                     raise ValueError(
                         f"There is no line named '{user_input}'")
@@ -229,15 +247,25 @@ class Line:
                 print(e)
                 while True:
                     user_input2 = input(
-                        "Enter '0' to exit or '1' to remove another line: ").strip()
+                        "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
                     if user_input2 == "1":
                         break
                     elif user_input2 == "0":
                         return
+                    else:
+                        print("Invalid option.")
 
     def viewing(self):
         if len(self.lines) == 0:
-            print("No line has been added yet")
+            print(f"\nNo line has been added yet")
         else:
             for key, value in self.lines.items():
                 print(f"{key} : {value}")
+        print("------------------------")
+        while True:
+            user_input0 = input(
+                "Enter 0 to go back to Employee Panel: ").strip()
+            if user_input0 == "0":
+                break
+            else:
+                print("Invalid option.")
