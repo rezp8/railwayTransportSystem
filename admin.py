@@ -110,11 +110,12 @@ class Admin:
                 break
             
             while True:
-                u = input("Username: ").lower()
+                print("Username must start with a letter and contain only letters and numbers (minimum 4 characters).")
+                u = input("Username: ").lower().strip()
                 if u == "0":
                     return
-                if len(u) < 4 or not u.isalnum():
-                    print("Username must be at least 4 characters and contain only letters or numbers.")
+                if not re.match(r"^[a-zA-Z][a-zA-Z0-9]{3,}$", u):
+                    print("Invalid username format. Please follow the rule above.")
                     continue
                 if u in self.user_checker:
                     print("Username already exists.")
@@ -122,11 +123,12 @@ class Admin:
                 break
             
             while True:
+                print("Password must include letters, numbers, and one of the symbols '@' or '&'.")
                 p = input("Password: ")
                 if p == "0":
                     return
-                if len(p) < 6 or not re.search(r"\d", p):
-                    print("Password must be at least 6 characters and include a number.")
+                if not re.match(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@&])[A-Za-z\d@&]{6,}$", p):
+                    print("Password must be at least 6 characters and include a letter, a number, and one of '@' or '&'.")
                     continue
                 break
             
