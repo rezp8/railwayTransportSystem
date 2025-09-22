@@ -2,7 +2,6 @@ from final_line import Line
 from final_train import Train
 
 
-
 def employee_login(employees):
     while True:
         print("Welcome Employee")
@@ -23,8 +22,8 @@ train = Train(None)
 line = Line(train)
 train.line = line
 
-def employee_panel():
 
+def employee_panel():
 
     while True:
         try:

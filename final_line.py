@@ -4,7 +4,6 @@ class Line:
         self.lines = {}
         self.train = train
 
-
     def creating(self):
         while True:
             try:
