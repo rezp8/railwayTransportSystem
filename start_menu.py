@@ -1,7 +1,7 @@
 from admin import Admin
 from final_employee_panel import employee_login
 admin = Admin()
-
+from main import regular_user_flow
 def start_menu():
     while True:
         print("Welcome!")
@@ -21,9 +21,10 @@ def start_menu():
             employee_login(admin.employees)
             
         elif choose == "3":
-            #waiting for published
-            print("Karbar Khoosh oomadi!")
-            print("Coming Soon")
+            regular_user_flow()
+            # #waiting for published
+            # print("Karbar Khoosh oomadi!")
+            # print("Coming Soon")
             
         elif choose == "4":
             print("Goodbye!")
