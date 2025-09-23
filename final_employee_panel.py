@@ -83,3 +83,7 @@ def safe_input(prompt):
             return value
         else:
             print("Input must be non-empty. Please try again")
+<<<<<<< HEAD
+=======
+
+>>>>>>> 498fde282e8b128c8edd48f36c91d5d79e9ed7d8
