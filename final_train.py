@@ -253,8 +253,10 @@ class Train:
                             return
                         else:
                             print("Invalid option.")
+
+                print(sorted(list(self.trains.keys())))
                 user_input = input(
-                    "Enter the ID of the train you would like to edit: ").strip().title()
+                    "Enter the ID of the train you would like to edit from the list above: ").strip().title()
                 if user_input in self.trains:
                     print(f"{user_input} : {self.trains[user_input]}")
                     while True:
@@ -314,8 +316,10 @@ class Train:
                             return
                         else:
                             print("Invalid option.")
+
+                print(sorted(list(self.trains.keys())))
                 user_input = input(
-                    "Enter the ID of the train you would like to remove: ").strip().title()
+                    "Enter the ID of the train you would like to remove from the list above: ").strip().title()
                 if user_input in self.trains:
                     self.trains.pop(user_input)
                     print(
