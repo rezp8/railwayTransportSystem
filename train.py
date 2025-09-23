@@ -27,7 +27,7 @@ class TrainManager:
             trains.append(Train(
                 train.trains[i]["Name"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
-                train.trains[i]["Capacity"]-train.trains[i]["filled"], 
+                int(train.trains[i]["Capacity"])-train.trains[i]["filled"], 
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
@@ -43,7 +43,7 @@ class TrainManager:
             trains.append(Train(
                 train.trains[i]["Name"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
-                train.trains[i]["Capacity"]-train.trains[i]["filled"],  
+                int(train.trains[i]["Capacity"])-train.trains[i]["filled"],  
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
