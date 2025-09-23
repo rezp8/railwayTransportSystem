@@ -10,6 +10,7 @@ class Train:
         if len(self.line.lines) == 0:
             print(
                 f"\nAdding train is not possible: no line defined yet.\nPlease add a line first by choosing option 1 from Employee Panel.")
+            print("------------------------")
             while True:
                 user_input0 = input(
                     "Enter 0 to go to Employee Panel: ").strip()
@@ -235,7 +236,14 @@ class Train:
             try:
                 if len(self.trains) == 0:
                     print("No train found to edit.")
-                    break
+                    print("------------------------")
+                    while True:
+                        user_input0 = input(
+                            "Enter 0 to go back to Employee Panel: ").strip()
+                        if user_input0 == "0":
+                            return
+                        else:
+                            print("Invalid option.")
                 user_input = input(
                     "Enter the ID of the train you would like to edit: ").strip().title()
                 if user_input in self.trains:
@@ -288,8 +296,15 @@ class Train:
         while True:
             try:
                 if len(self.trains) == 0:
-                    print("No train found to remove.")
-                    break
+                    print(f"\nNo train found to remove.")
+                    print("------------------------")
+                    while True:
+                        user_input0 = input(
+                            "Enter 0 to go back to Employee Panel: ").strip()
+                        if user_input0 == "0":
+                            return
+                        else:
+                            print("Invalid option.")
                 user_input = input(
                     "Enter the ID of the train you would like to remove: ").strip().title()
                 if user_input in self.trains:
@@ -323,7 +338,7 @@ class Train:
 
     def viewing(self):
         if len(self.trains) == 0:
-            print("No train has been added yet")
+            print("No train found to display")
         else:
             for key, value in self.trains.items():
                 print(f"{key} : {value}")
@@ -341,10 +356,4 @@ class Train:
         for key, value in self.trains.items():
             if value["Line"] != line_name:
                 filtered_trains[key] = value
-
         self.trains = filtered_trains
-
-
-# self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": f"{self.avg_speed} km/h",
-#                                             "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": f"{self.ticket_price} Rial",
-#                                             "Capacity": f"{self.capacity} passengers"}
