@@ -83,4 +83,3 @@ def safe_input(prompt):
         else:
             print("Input must be non-empty. Please try again")
 
-employee_panel()

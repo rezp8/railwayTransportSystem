@@ -5,24 +5,24 @@ from ticket import TicketManager
 from wallet import WalletManager
 from utils import clear_screen
 
-def start_panel():
-    while True:
-        clear_screen()
-        print("=== Train Ticket System ===")
-        print("1. Full Admin")
-        print("2. Train Employee")
-        print("3. Regular User")
-        print("4. Exit")
-        choice = input("Choose an option: ").strip()
+# def start_panel():
+#     while True:
+#         clear_screen()
+#         print("=== Train Ticket System ===")
+#         print("1. Full Admin")
+#         print("2. Train Employee")
+#         print("3. Regular User")
+#         print("4. Exit")
+#         choice = input("Choose an option: ").strip()
 
-        if choice == "3":
-            regular_user_flow()
-        elif choice == "4":
-            print("Exiting...")
-            break
-        else:
-            print("Only Regular User is supported in this version.")
-            input("Press Enter to continue...")
+#         if choice == "3":
+#             regular_user_flow()
+#         elif choice == "4":
+#             print("Exiting...")
+#             break
+#         else:
+#             print("Only Regular User is supported in this version.")
+#             input("Press Enter to continue...")
 
 def regular_user_flow():
     user_manager = UserManager()
@@ -132,5 +132,5 @@ def card_management_flow(card_manager):
             print("Invalid choice.")
             input("Press Enter to continue...")
 
-if __name__ == "__main__":
-    start_panel()
+# if __name__ == "__main__":
+#     start_panel()
