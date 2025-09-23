@@ -44,7 +44,7 @@ def validate_registration_data(username, email, name, password, existing_users):
 # def clear_screen():
 #     os.system('cls' if os.name == 'nt' else 'clear')
 
-def print_sep(title: str | None = None, width: int = 60):
+def print_sep(title: str = "" , width: int = 60):
     line = "-" * width
     if title:
         print(f"\n{line}\n{title}\n{line}")

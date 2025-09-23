@@ -52,34 +52,67 @@ def purchase_flow(user, user_manager, train_manager, ticket_manager, wallet_mana
             train_manager.show_trains()
             train = train_manager.select_train()
             if train:
-                # Store initial balance to check if payment was completed
-                initial_balance = user.wallet
-                wallet_manager.add_funds_prompt(user)
-                
-                # Check if user actually completed payment (balance increased)
-                if user.wallet > initial_balance:
-                    if wallet_manager.has_sufficient_balance(user, train.price):
-                        count_input = input("How many tickets? (or 'back' to cancel): ").strip()
-                        if count_input.lower() == 'back':
-                            continue
-                        
-                        try:
-                            count = int(count_input)
-                            total_cost = train.price * count
-                            if wallet_manager.has_sufficient_balance(user, total_cost):
-                                wallet_manager.deduct_balance(user, total_cost)
-                                ticket_manager.issue_ticket(user, train, count)
-                                wallet_manager.record_ticket_purchase(user, total_cost, train.name, count)
-                            else:
-                                print("Low Balance.")
-                                input("Press Enter to continue...")
-                        except ValueError:
-                            print("Invalid number.")
+                # Check if user has sufficient balance first
+                if wallet_manager.has_sufficient_balance(user, train.price):
+                    count_input = input("How many tickets? (or 'back' to cancel): ").strip()
+                    if count_input.lower() == 'back':
+                        continue
+                    
+                    try:
+                        count = int(count_input)
+                        total_cost = train.price * count
+                        if wallet_manager.has_sufficient_balance(user, total_cost):
+                            # Ask user to select a card for the purchase
+                            selected_card = None
+                            if user.cards:
+                                print("\nSelect a card for this purchase:")
+                                for i, card in enumerate(user.cards):
+                                    print(f"{i+1}. {card.get_display_info_with_balance()}")
+                                print(f"{len(user.cards)+1}. Use wallet balance only")
+                                
+                                card_choice = input("Choose card (or 'back' to cancel): ").strip()
+                                if card_choice.lower() == 'back':
+                                    continue
+                                
+                                try:
+                                    card_idx = int(card_choice) - 1
+                                    if 0 <= card_idx < len(user.cards):
+                                        selected_card = user.cards[card_idx]
+                                    elif card_idx == len(user.cards):
+                                        selected_card = None  # Use wallet only
+                                    else:
+                                        print("Invalid selection.")
+                                        input("Press Enter to continue...")
+                                        continue
+                                except ValueError:
+                                    print("Invalid selection.")
+                                    input("Press Enter to continue...")
+                                    continue
+                            
+                            wallet_manager.deduct_balance(user, total_cost)
+                            
+                            # Update card balance if a card was selected
+                            if selected_card:
+                                selected_card.add_transaction(total_cost, 'payment', f'Ticket purchase: {train.name} x{count}')
+                            
+                            ticket_manager.issue_ticket(user, train, count)
+                            wallet_manager.record_ticket_purchase(user, total_cost, train.name, count)
+                        else:
+                            print("Insufficient balance for this purchase.")
+                            print(f"Required: {total_cost}, Available: {user.wallet}")
+                            add_funds = input("Would you like to add funds? (y/n): ").strip().lower()
+                            if add_funds == 'y':
+                                wallet_manager.add_funds_prompt(user)
                             input("Press Enter to continue...")
-                    else:
-                        print("Insufficient balance for this train.")
+                    except ValueError:
+                        print("Invalid number.")
                         input("Press Enter to continue...")
-                # If balance didn't increase, user cancelled the payment process
+                else:
+                    print(f"Insufficient balance. Required: {train.price}, Available: {user.wallet}")
+                    add_funds = input("Would you like to add funds? (y/n): ").strip().lower()
+                    if add_funds == 'y':
+                        wallet_manager.add_funds_prompt(user)
+                    input("Press Enter to continue...")
         elif choice == "2":
             user_manager.edit_user_info(user)
         elif choice == "3":

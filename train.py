@@ -9,9 +9,8 @@
 #                         "empty capacity": int(self.capacity)
 # }
 class Train:
-    def __init__(self, name, origin, destination, capacity, price, id):
+    def __init__(self, name, destination, capacity, price, id):
         self.name = name
-        self.origin = origin
         self.destination = destination
         self.capacity = capacity
         self.price = price
@@ -23,16 +22,22 @@ class TrainManager:
 
     def show_trains(self):
         from final_employee_panel import train
-        trains=[] 
+        trains = []
+        
+        # Add trains from the main system
         for i in train.trains:
             trains.append(Train(
                 train.trains[i]["Name"],
-                train.line.lines[train.trains[i]["Line"]]["origin"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
                 int(train.trains[i]["Capacity"])-train.trains[i]["filled"], 
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
+        
+        # If no trains in main system, show default trains
+        if not trains:
+            trains = [Train("Rajaei", "Tehran", 16, 120, "default_1"), Train("Rajaei", "Shiraz", 10, 320, "default_2")]
+        
         print("\n=== Available Trains ===")
         for i, t in enumerate(trains):
             status = "Capacity Full" if t.capacity <= 0 else f"{t.capacity} seats left"
@@ -40,16 +45,22 @@ class TrainManager:
 
     def select_train(self): 
         from final_employee_panel import train
-        trains=[] 
+        trains = []
+        
+        # Add trains from the main system
         for i in train.trains:
             trains.append(Train(
                 train.trains[i]["Name"],
-                train.line.lines[train.trains[i]["Line"]]["origin"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
                 int(train.trains[i]["Capacity"])-train.trains[i]["filled"],  
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
+        
+        # If no trains in main system, show default trains
+        if not trains:
+            trains = [Train("Rajaei", "Tehran", 16, 120, "default_1"), Train("Rajaei", "Shiraz", 10, 320, "default_2")]
+        
         try:
             if len(trains)==0:
                 print("There are no available trains")
@@ -60,9 +71,9 @@ class TrainManager:
                 return None
             
             idx = int(choice) - 1
-            train = trains[idx]
-            if train.capacity > 0:
-                return train
+            selected_train = trains[idx]
+            if selected_train.capacity > 0:
+                return selected_train
             else:
                 print("This train is full.")
                 input("Press Enter to continue...")
