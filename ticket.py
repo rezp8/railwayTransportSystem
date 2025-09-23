@@ -9,7 +9,7 @@ class TicketManager:
         with open(filename, "a") as f:
             f.write(f"Buyer: {user.name}\n")
             f.write(f"Train: {tr.name}\n")
-            f.write(f"Destination: {tr.origin}\n")
+            f.write(f"[Origin]: {tr.origin}\n")
             f.write(f"Destination: {tr.destination}\n")
             f.write(f"Tickets: {count}\n")
             f.write(f"Total Price: {tr.price * count}\n")
