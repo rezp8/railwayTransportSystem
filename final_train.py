@@ -13,8 +13,8 @@ class Train:
             print("------------------------")
             while True:
                 user_input0 = input(
-                    "Enter 0 to go to Employee Panel: ").strip()
-                if user_input0 == "0":
+                    "Type 'back' to go to Employee Panel: ").strip().title()
+                if user_input0 == "Back":
                     break
                 else:
                     print("Invalid option.")
@@ -23,222 +23,118 @@ class Train:
             while True:
                 try:
                     while True:
-                        try:
-                            self.name = input("Train name: ").strip().title()
-                            if self.name == "":
-                                raise ValueError("Name cannot be empty.")
-                            elif is_float(self.name):
-                                raise ValueError(
-                                    "Name could be a combination of alphabets and digits but not digits only")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input1 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input1 == "1":
-                                    break
-                                elif user_input1 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        name = safe_input(
+                            "Train name:(Type 'back' to go back to Employee Panel) ").strip().title()
+                        if name == "Back":
+                            return
+                        elif is_float(name):
+                            print(
+                                "Name could be a combination of alphabets and digits but not digits only")
+                        break
 
                     while True:
-                        try:
-                            print(sorted(list(self.line.lines.keys())))
-                            self.moving_line = input(
-                                "Please choose a line from the list above: ").strip().title()
-                            if self.moving_line == "":
-                                raise ValueError("Line cannot be empty.")
-                            elif self.moving_line not in list(self.line.lines.keys()):
-                                raise ValueError(
-                                    f"Line named '{self.moving_line}' doesn't exist.")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input2 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input2 == "1":
-                                    break
-                                elif user_input2 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        print(sorted(list(self.line.lines.keys())))
+                        moving_line = safe_input(
+                            "Please choose a line from the list above:(Type 'back' to go back to employee panel) ").strip().title()
+                        if moving_line == "Back":
+                            return
+                        elif moving_line not in list(self.line.lines.keys()):
+                            print(f"Line named '{moving_line}' doesn't exist")
+                        break
 
                     while True:
-                        try:
-                            self.avg_speed = input("Average speed: ").strip()
-                            if self.avg_speed == "":
-                                raise ValueError(
-                                    "Average speed cannot be empty")
-                            elif not is_float(self.avg_speed) or float(self.avg_speed) < 0:
-                                raise ValueError(
-                                    "Average speed must be a whole or floating number greater than zero")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input3 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input3 == "1":
-                                    break
-                                elif user_input3 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        avg_speed = input(
+                            "Average speed:(Type 'back' to go back to employee panel) ").strip().title()
+                        if avg_speed == "Back":
+                            return
+                        elif not is_float(avg_speed) or float(avg_speed) < 0:
+                            raise ValueError(
+                                "Average speed must be a whole or floating number equal or greater than zero")
+                        break
 
-                    if self.line.lines[self.moving_line]["number of stations"] == "0":
-                        self.stop_per_station = None
+                    if self.line.lines[moving_line]["number of stations"] == "0":
+                        stop_per_station = None
                     else:
                         while True:
-                            try:
-                                print(self.line.lines[self.moving_line]
-                                      ["stations"])
-                                self.stop_per_station = input(
-                                    f"Please enter the stop duration for each station showed on the list above(use space to separate them): ").strip().split()
-                                if len(self.stop_per_station) != int(self.line.lines[self.moving_line]["number of stations"]):
-                                    raise ValueError(
-                                        f"Expected {int(self.line.lines[self.moving_line]["number of stations"])} stop duration but recieved {len(self.stop_per_station)}")
-                                # for number in self.stop_per_station:
-                                #     if number.isdecim
-
-                                else:
-                                    break
-                            except ValueError as e:
-                                print(e)
-                                while True:
-                                    user_input4 = input(
-                                        "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                    if user_input4 == "1":
-                                        break
-                                    elif user_input4 == "0":
-                                        return
-                                    else:
-                                        print("Invalid option.")
+                            print(line.lines[moving_line]
+                                  ["stations"])
+                            stop_per_station = safe_input(
+                                f"Stop duration(in minutes) for each station, separated by spaces\n(Enter 'back' to go back to employee panel)\n>>> ").strip().title().split()
+                            for number in stop_per_station:
+                                if len(stop_per_station) == 0 and number == "Back":
+                                    return
+                            if len(stop_per_station) != int(self.line.lines[moving_line]["number of stations"]):
+                                print(
+                                    f"Expected {int(self.line.lines[moving_line]["number of stations"])} stop duration but recieved {len(stop_per_station)}")
+                            for number in stop_per_station:
+                                if not is_float(number):
+                                    print(
+                                        "The format of stop duration must be a whole or floating number")
+                            break
 
                     while True:
-                        try:
-                            quality_reference = ["3stars", "2stars", "1star"]
-                            print(quality_reference)
-                            self.quality = input(
-                                "Please choose 'Train Quality' from the list above: ").strip().lower()
-                            if self.quality == "":
-                                raise ValueError("Quality cannot be empty.")
-                            elif self.quality not in quality_reference:
-                                raise ValueError(
-                                    f"Quality '{self.quality}' has not been defined.")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input5 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input5 == "1":
-                                    break
-                                elif user_input5 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        quality_reference = ["3stars", "2stars", "1star"]
+                        print(quality_reference)
+                        quality = input(
+                            "Please choose 'Train Quality' from the list above:\n(Type 'back' to go back to employee panel) ").strip().title()
+                        if quality == "Back":
+                            return
+                        elif quality not in quality_reference:
+                            print(
+                                f"Quality '{self.quality}' has not been defined.")
+                        break
 
                     while True:
-                        try:
-                            self.ticket_price = input("Ticket price: ").strip()
-                            if self.ticket_price == "":
-                                raise ValueError(
-                                    "Price cannot be empty.")
-                            elif not is_float(self.ticket_price) or float(self.ticket_price) < 0:
-                                raise ValueError(
-                                    "Price must be a whole or floating number greater than zero")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input6 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input6 == "1":
-                                    break
-                                elif user_input6 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        ticket_price = input(
+                            "Ticket price:(Type 'back' to go back to employee panel) ").strip().title()
+                        if ticket_price == "Back":
+                            return
+                        elif not is_float(ticket_price) or float(ticket_price) < 0:
+                            print(
+                                "Price must be a whole or floating number equal or greater than zero")
+                        break
 
                     while True:
-                        try:
-                            self.capacity = input("Capacity: ").strip()
-                            if self.capacity == "":
-                                raise ValueError("Capacity cannot be empty.")
-                            elif not self.capacity.isdecimal():
-                                raise ValueError(
-                                    "Capacity must be whole number greater than zero")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input7 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input7 == "1":
-                                    break
-                                elif user_input7 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        capacity = input(
+                            "Capacity:(Type 'back' to go back to employee panel) ").strip().title()
+                        if capacity == "Back":
+                            return
+                        elif not self.capacity.isdecimal():
+                            print("Capacity must be whole number greater than zero")
+                        break
 
                     while True:
-                        try:
-                            self.id = input("Train ID: ").title().strip()
-                            if self.id == "":
-                                raise ValueError("Train ID cannot be empty.")
-                            else:
-                                break
-                        except ValueError as e:
-                            print(e)
-                            while True:
-                                user_input8 = input(
-                                    "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                                if user_input8 == "1":
-                                    break
-                                elif user_input8 == "0":
-                                    return
-                                else:
-                                    print("Invalid option.")
+                        train_id = input(
+                            "Train ID:(Type 'back' to go back to employee panel) ").strip().title()
+                        if train_id == "":
+                            return
+                        elif is_float(name):
+                            print(
+                                "Train ID could be a combination of alphabets and digits but not digits only")
+                        break
 
-                    if self.id not in self.trains:
-                        self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": self.avg_speed,
-                                                "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": self.ticket_price,
-                                                "Capacity": self.capacity, "empty capacity": int(self.capacity)}
+                    if train_id not in self.trains:
+                        self.trains[train_id] = {"Name": name, "Line": moving_line, "Average speed": avg_speed,
+                                                 "Stop duration per station": stop_per_station, "Quality": quality, "Ticket price": ticket_price,
+                                                 "Capacity": capacity, "empty capacity": int(capacity)}
 
                         print(
-                            f"\n***** Train with ID '{self.id}' has been successfully added *****\n")
-                        while True:
-                            user_input9 = input(
-                                "Enter '0' to go back to Employee Panel or '1' to add another line: ").strip()
-                            if user_input9 == "1":
-                                break
-                            elif user_input9 == "0":
-                                return
-                            else:
-                                print("Invalid option.")
+                            f"\n***** Train with ID '{train_id}' has been successfully added *****\n")
                     else:
-                        raise ValueError(
-                            f"A train with ID '{self.id}' already exists. Train IDs cannot be repetetive.")
-                except ValueError as e:
-                    print(e)
+                        print(
+                            f"A train with ID '{train_id}' already exists. Train IDs cannot be repetetive.")
                     while True:
-                        user_input10 = input(
-                            "Enter '0' to go back to Employee Panel or '1' to try again: ").strip()
-                        if user_input10 == "1":
+                        user_input6 = input(
+                            "Enter '0' to go back to Employee Panel or '1' to add another train: ").strip()
+                        if user_input6 == "1":
                             break
-                        elif user_input10 == "0":
+                        elif user_input6 == "0":
                             return
                         else:
                             print("Invalid option.")
+
+                except Exception as e:
+                    print(e)
 
     def editing(self):
         while True:
@@ -370,6 +266,15 @@ class Train:
             if value["Line"] != line_name:
                 filtered_trains[key] = value
         self.trains = filtered_trains
+
+
+def safe_input(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value != "":
+            return value
+        else:
+            print("Input must be non-empty. Please try again.")
 
 
 def is_float(number):
