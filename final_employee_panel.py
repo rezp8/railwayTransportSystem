@@ -64,7 +64,6 @@ def employee_panel():
             elif user_input == "9":
                 print("Logging out and returning to Employee Login...\n")
                 return
-            
 
         except ValueError as e:
             print(e)
@@ -74,7 +73,9 @@ def employee_panel():
                 if user_input1 == "1":
                     break
                 else:
-                    print("Invalid option. Please choose either '0' or '1'.")
+                    print("Invalid option.")
+
+
 def safe_input(prompt):
     while True:
         value = input(prompt).strip()
@@ -82,5 +83,3 @@ def safe_input(prompt):
             return value
         else:
             print("Input must be non-empty. Please try again")
-
-employee_panel()
