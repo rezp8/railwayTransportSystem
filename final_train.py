@@ -52,25 +52,27 @@ class Train:
                                 "Average speed must be a whole or floating number equal or greater than zero")
                         break
 
-                    if self.line.lines[moving_line]["number of stations"] == "0":
+                    if Line.lines[moving_line]["number of stations"] == "0":
                         stop_per_station = None
                     else:
                         while True:
                             print(self.line.lines[moving_line]
                                   ["stations"])
                             stop_per_station = safe_input(
-                                f"Stop duration(in minutes) for each station, separated by spaces\n(Enter 'back' to go back to employee panel)\n>>> ").strip().title().split()
-                            for number in stop_per_station:
-                                if len(stop_per_station) == 0 and number == "Back":
-                                    return
+                                f"Stop duration(in minutes) for each station, separated by spaces\n(Enter 'back' to go back to employee panel)\n>>> ").strip()
+                            if stop_per_station.title() == "Back":
+                                return
+                            stop_per_station = stop_per_station.split()
                             if len(stop_per_station) != int(self.line.lines[moving_line]["number of stations"]):
                                 print(
                                     f"Expected {int(self.line.lines[moving_line]["number of stations"])} stop duration but recieved {len(stop_per_station)}")
-                            for number in stop_per_station:
-                                if not is_float(number):
-                                    print(
-                                        "The format of stop duration must be a whole or floating number")
+                                continue
+                            elif not all(is_float(number) for number in stop_per_station):
+                                print(
+                                    "The format of stop duration must be a whole or floating number")
+                                continue
                             break
+
 
                     while True:
                         quality_reference = ["3stars", "2stars", "1star"]
@@ -138,66 +140,123 @@ class Train:
 
     def editing(self):
         while True:
-            try:
-                if len(self.trains) == 0:
-                    print("No train found to edit.")
-                    print("------------------------")
-                    while True:
-                        user_input0 = input(
-                            "Enter 0 to go back to Employee Panel: ").strip()
-                        if user_input0 == "0":
-                            return
-                        else:
-                            print("Invalid option.")
+            if len(self.trains) == 0:
+                print("No train found to edit.")
+                print("------------------------")
+                while True:
+                    user_input0 = input("Enter 0 to go back to Employee Panel: ").strip()
+                    if user_input0 == "0":
+                        return
+                    else:
+                        print("Invalid option.")
 
-                print(sorted(list(self.trains.keys())))
-                user_input = input(
-                    "Enter the ID of the train you would like to edit from the list above: ").strip().title()
-                if user_input in self.trains:
-                    print(f"{user_input} : {self.trains[user_input]}")
-                    while True:
-                        try:
-                            user_input2 = input(
-                                "What feature would you like to edit?(Name, Line, Average speed, Stop duration per station, Quality, Ticket price, Capacity): ").strip().lower()
-                            reference = ["name", "line", "average speed", "stop duration per station",
-                                         "quality ", "ticket price", "capacity"]
-                            if user_input2 in reference:
-                                while True:
-                                    try:
-                                        user_input3 = input(
-                                            f"Enter the new value for '{user_input2}': ")
-                                        if user_input3 != "":
-                                            self.trains[user_input][user_input2] = user_input3
-                                            print(
-                                                f"\n*****{user_input2} of train '{self.id}' has been successfully changed.*****\n")
-                                            return
-                                        else:
-                                            raise ValueError(
-                                                f"'{user_input2}' cannot be empty.")
-                                    except ValueError as e:
-                                        print(e)
-                                    user_input4 = input(
-                                        "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
-                                    if user_input4 == "exit":
-                                        break
-                            else:
-                                raise ValueError(
-                                    f"There is no feature named '{user_input2}'")
-                        except ValueError as e:
-                            print(e)
-                        user_input5 = input(
-                            "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
-                        if user_input5 == "exit":
-                            break
+            print(sorted(list(self.trains.keys())))
+            train_id_input = safe_input(
+                "Enter the ID of the train you would like to edit from the list above:\n"
+                "(Type  'back' to go back to Employee Panel)\n>>> "
+            ).strip().title()
+            if train_id_input == "Back":
+                return
+
+            train_keys= {key: key for key in self.trains.keys()}
+            if train_id_input.title() in train_keys:
+                train_id = train_keys[train_id_input]
+            else:
+                print(f"Train with ID '{train_id_input}' doesn't exist.")
+                retry = safe_input("Enter '1' to try again or '0' to return to Employee Panel:\n>>> ").strip()
+                if retry == "0":
+                    return
                 else:
-                    raise ValueError(
-                        f"Train with ID '{user_input}' doesn't exist.")
-            except ValueError as e:
-                print(e)
-            user_input6 = input(
-                "Enter 'exit' to return to the previous page or press enter to try again: ").strip().lower()
-            if user_input6 == "exit":
-                break
+                    continue
+
+            print(f"{train_id} : {self.trains[train_id]}")
+
+            while True:
+                feature_map = {
+                    "1": "Name",
+                    "2": "Line",
+                    "3": "Average speed",
+                    "4": "Stop duration per station",
+                    "5": "Quality",
+                    "6": "Ticket price",
+                    "7": "Capacity"
+                }
+
+                feature_input = safe_input(
+                    "What feature would you like to edit?\n"
+                    "1. Name\n2. Line\n3. Average speed\n4. Stop duration per station\n"
+                    "5. Quality\n6. Ticket price\n7. Capacity\n0. Return to Employee Panel\n>>> "
+                ).strip()
+
+                if feature_input == "0":
+                    return
+
+                feature = feature_map.get(feature_input)
+                if not feature:
+                    print("Invalid option. Please try again.")
+                    continue
+
+                if feature == "Stop duration per station":
+                    line_name = self.trains[train_id]["Line"]
+                    num_stations = int(Line.lines[line_name]["number of stations"])
+                    if num_stations == 0:
+                        print("This train's line has 0 stations. No stop durations to edit.")
+                        continue
+                    print(Line.lines[line_name]["stations"])
+                    while True:
+                        new_times = safe_input(
+                            f"Enter new stop durations for each station, separate them by spaces:\n"
+                            "(Type 'back' to cancel)\n>>> "
+                        ).strip().title().split()
+                        if new_times == ["Back"]:
+                            return
+                        if len(new_times) != num_stations:
+                            print(f"Expected {num_stations} values but got {len(new_times)}.")
+                            continue
+                        if not all(is_float(time) for time in new_times):
+                            print("All durations must be numeric.")
+                            continue
+                        self.trains[train_id][feature] = new_value
+                        break
+
+                else:
+                    while True:
+                        new_value = safe_input(f"Enter the new value for '{feature}':\n(Type 'back' to cancel)\n>>> ").strip().title()
+                        if new_value == "Back":
+                            break
+                        if feature == "Line":
+                            if new_value not in Line.lines:
+                                print(f"Line '{new_value}' doesn't exist.")
+                                continue
+                        elif feature == "Average speed" or feature == "Ticket price":
+                            if not is_float(new_value) or float(new_value) <= 0:
+                                print(f"{feature} must be a positive number.")
+                                continue
+                        elif feature == "Capacity":
+                            if not new_value.isdigit() or int(new_value) < 0:
+                                print("Capacity must be a positive whole number.")
+                                continue
+ 
+                        self.trains[train_id][feature] = new_value
+                        break
+
+                print(f"\n***** {feature} of train '{train_id}' has been successfully changed. *****\n")
+
+                next_step = safe_input(
+                    "Enter '0' to return to Employee Panel\n"
+                    "Enter '1' to edit another feature of this train\n"
+                    "Enter '2' to edit another train\n>>> "
+                ).strip()
+                if next_step == "0":
+                    return
+                elif next_step == "1":
+                    continue
+                elif next_step == "2":
+                    break
+                else:
+                    print("Invalid option. Returning to Employee Panel.")
+                    return
+
 
     def removing(self):
         while True:
