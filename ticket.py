@@ -4,7 +4,7 @@ from final_employee_panel import train
 
 class TicketManager:   
     def issue_ticket(self, user, tr, count):
-        train.trains[tr.id]["empty capacity"] -= count
+        train.trains[tr.id]["filled"] += count
         filename = f"{user.username}_ticket.txt"
         with open(filename, "a") as f:
             f.write(f"Buyer: {user.name}\n")
@@ -15,5 +15,5 @@ class TicketManager:
             f.write(f"Time: {datetime.datetime.now()}\n")
             f.write("-" * 30 + "\n")
         print("Ticket issued successfully. Saved to file.")
-        input("Press Enter to continue... ")
+        input("Press Enter to continue... ") 
         

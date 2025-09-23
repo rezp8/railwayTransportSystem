@@ -26,8 +26,8 @@ class TrainManager:
         for i in train.trains:
             trains.append(Train(
                 train.trains[i]["Name"],
-                train.line.lines[train.trains[i]["Line"]]["Destination"], 
-                train.trains[i]["empty capacity"], 
+                train.line.lines[train.trains[i]["Line"]]["destination"], 
+                train.trains[i]["Capacity"]-train.trains[i]["filled"], 
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
@@ -36,14 +36,14 @@ class TrainManager:
             status = "Capacity Full" if t.capacity <= 0 else f"{t.capacity} seats left"
             print(f"{i+1}. {t.name} -> {t.destination} | Price: {t.price} | {status}")
 
-    def select_train(self):
+    def select_train(self): 
         from final_employee_panel import train
         trains=[] 
         for i in train.trains:
             trains.append(Train(
                 train.trains[i]["Name"],
-                train.line.lines[train.trains[i]["Line"]]["Destination"], 
-                train.trains[i]["empty capacity"], 
+                train.line.lines[train.trains[i]["Line"]]["destination"], 
+                train.trains[i]["Capacity"]-train.trains[i]["filled"],  
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
