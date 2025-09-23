@@ -7,7 +7,7 @@ class Train:
         self.line = line
 
     def creating(self):
-        if len(Line.lines) == 0:
+        if len(self.line.lines) == 0:
             print(
                 f"\nAdding train is not possible: no line defined yet.\nPlease add a line first by choosing option 1 from Employee Panel.")
             print("------------------------")
@@ -33,12 +33,12 @@ class Train:
                         break
 
                     while True:
-                        print(sorted(list(Line.lines.keys())))
+                        print(sorted(list(self.line.lines.keys())))
                         moving_line = safe_input(
                             "Please choose a line from the list above:(Type 'back' to go back to employee panel) ").strip().title()
                         if moving_line == "Back":
                             return
-                        elif moving_line not in list(Line.lines.keys()):
+                        elif moving_line not in list(self.line.lines.keys()):
                             print(f"Line named '{moving_line}' doesn't exist")
                         break
 
@@ -52,20 +52,20 @@ class Train:
                                 "Average speed must be a whole or floating number equal or greater than zero")
                         break
 
-                    if Line.lines[moving_line]["number of stations"] == "0":
+                    if self.line.lines[moving_line]["number of stations"] == "0":
                         stop_per_station = None
                     else:
                         while True:
-                            print(Line.lines[moving_line]
+                            print(self.line.lines[moving_line]
                                   ["stations"])
                             stop_per_station = safe_input(
                                 f"Stop duration(in minutes) for each station, separated by spaces\n(Enter 'back' to go back to employee panel)\n>>> ").strip()
                             if stop_per_station.title() == "Back":
                                 return
                             stop_per_station = stop_per_station.split()
-                            if len(stop_per_station) != int(Line.lines[moving_line]["number of stations"]):
+                            if len(stop_per_station) != int(self.line.lines[moving_line]["number of stations"]):
                                 print(
-                                    f"Expected {int(Line.lines[moving_line]["number of stations"])} stop duration but recieved {len(stop_per_station)}")
+                                    f"Expected {int(self.line.lines[moving_line]["number of stations"])} stop duration but recieved {len(stop_per_station)}")
                                 continue
                             elif not all(is_float(number) for number in stop_per_station):
                                 print(
@@ -78,12 +78,12 @@ class Train:
                         quality_reference = ["3stars", "2stars", "1star"]
                         print(quality_reference)
                         quality = input(
-                            "Please choose 'Train Quality' from the list above:\n(Type 'back' to go back to employee panel) ").strip().title()
-                        if quality == "Back":
+                            "Please choose 'Train Quality' from the list above:\n(Type 'back' to go back to employee panel) ").strip()
+                        if quality.title() == "Back":
                             return
                         elif quality not in quality_reference:
                             print(
-                                f"Quality '{self.quality}' has not been defined.")
+                                f"Quality '{quality}' has not been defined.")
                         break
 
                     while True:
@@ -118,7 +118,7 @@ class Train:
                     if train_id not in self.trains:
                         self.trains[train_id] = {"Name": name, "Line": moving_line, "Average speed": avg_speed,
                                                  "Stop duration per station": stop_per_station, "Quality": quality, "Ticket price": ticket_price,
-                                                 "Capacity": int(capacity), "filled":0}
+                                                 "Capacity": capacity, "filled":0}
 
                         print(
                             f"\n***** Train with ID '{train_id}' has been successfully added *****\n")
@@ -158,7 +158,7 @@ class Train:
             if train_id_input == "Back":
                 return
 
-            train_keys= {key: key for key in self.trains.keys()}
+            train_keys= {key.title(): key for key in self.trains.keys()}
             if train_id_input.title() in train_keys:
                 train_id = train_keys[train_id_input]
             else:
@@ -198,11 +198,11 @@ class Train:
 
                 if feature == "Stop duration per station":
                     line_name = self.trains[train_id]["Line"]
-                    num_stations = int(Line.lines[line_name]["number of stations"])
+                    num_stations = int(self.line.lines[line_name]["number of stations"])
                     if num_stations == 0:
                         print("This train's line has 0 stations. No stop durations to edit.")
                         continue
-                    print(Line.lines[line_name]["stations"])
+                    print(self.line.lines[line_name]["stations"])
                     while True:
                         new_times = safe_input(
                             f"Enter new stop durations for each station, separate them by spaces:\n"
@@ -225,7 +225,7 @@ class Train:
                         if new_value == "Back":
                             break
                         if feature == "Line":
-                            if new_value not in Line.lines:
+                            if new_value not in self.line.lines:
                                 print(f"Line '{new_value}' doesn't exist.")
                                 continue
                         elif feature == "Average speed" or feature == "Ticket price":
@@ -308,16 +308,30 @@ class Train:
         if len(self.trains) == 0:
             print("No train found to display")
         else:
+            print("\n******** Trains ********")
             for key, value in self.trains.items():
-                print(f"{key} : {value}")
-        print("------------------------")
-        while True:
-            user_input0 = input(
-                "Enter 0 to go back to Employee Panel: ").strip()
-            if user_input0 == "0":
-                break
-            else:
-                print("Invalid option.")
+                print(f"\nTrain ID : {key}")
+                print(f"  Name : {value['Name']}")
+                print(f"  Line : {value['Line']}")
+                print(f"  Avg. Speed : {value['Average speed']} km/h")
+                print(f"  Quality : {value['Quality']}")
+                print(f"  Ticket Price : {value['Ticket price']} Rial")
+                print(f"  Capacity : {value['Capacity']} Nafar)")
+
+                if value["Stop duration per station"]:
+                    print(f"  Stop/Station  : {', '.join(value['Stop duration per station'])}")
+                else:
+                    print(f"  Stop/Station  : None")
+
+            print("\n************************\n")
+            while True:
+                user_input0 = input(
+                    "Enter 0 to go back to Employee Panel: ").strip()
+                if user_input0 == "0":
+                    break
+                else:
+                    print("Invalid option.")
+
 
     def remove_trains_by_line(self, line_name):
         filtered_trains = {}
