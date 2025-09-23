@@ -67,8 +67,8 @@ class Line:
                         return
                     station_names = stations
 
-                if name not in self.lines:
-                    self.lines[name] = {
+                if name.title() not in self.lines:
+                    self.lines[name.title()] = {
                         "origin": origin.title(),
                         "destination": destination.title(),
                         "number of stations": stations_number,

@@ -27,6 +27,9 @@ class Train:
                             self.name = input("Train name: ").strip().title()
                             if self.name == "":
                                 raise ValueError("Name cannot be empty.")
+                            elif is_float(self.name):
+                                raise ValueError(
+                                    "Name could be a combination of alphabets and digits but not digits only")
                             else:
                                 break
                         except ValueError as e:
@@ -71,6 +74,12 @@ class Train:
                             if self.avg_speed == "":
                                 raise ValueError(
                                     "Average speed cannot be empty")
+                            elif not is_float(self.avg_speed):
+                                raise ValueError(
+                                    "Average speed must be a whole or floating number")
+                            elif float(self.avg_speed) <= 0:
+                                raise ValueError(
+                                    "Average speed must be a whole or floating number greater than zero")
                             else:
                                 break
                         except ValueError as e:
@@ -85,18 +94,18 @@ class Train:
                                 else:
                                     print("Invalid option.")
 
-                    if self.line.lines[self.moving_line]["Number of stations"] == "0":
+                    if self.line.lines[self.moving_line]["number of stations"] == "0":
                         self.stop_per_station = None
                     else:
                         while True:
                             try:
                                 print(self.line.lines[self.moving_line]
-                                      ["Stations"])
+                                      ["stations"])
                                 self.stop_per_station = input(
                                     f"Please enter the stop duration for each station showed on the list above(use space to separate them): ").strip().split()
-                                if len(self.stop_per_station) != int(self.line.lines[self.moving_line]["Number of stations"]):
+                                if len(self.stop_per_station) != int(self.line.lines[self.moving_line]["number of stations"]):
                                     raise ValueError(
-                                        f"Expected {int(self.line.lines[self.moving_line]["Number of stations"])} stop duration but recieved {len(self.stop_per_station)}")
+                                        f"Expected {int(self.line.lines[self.moving_line]["number of stations"])} stop duration but recieved {len(self.stop_per_station)}")
                                 # for number in self.stop_per_station:
                                 #     if number.isdecim
 
@@ -144,7 +153,13 @@ class Train:
                             self.ticket_price = input("Ticket price: ").strip()
                             if self.ticket_price == "":
                                 raise ValueError(
-                                    "Ticket price cannot be empty.")
+                                    "Price cannot be empty.")
+                            elif not is_float(self.ticket_price):
+                                raise ValueError(
+                                    "Price must be a whole or floating number")
+                            elif float(self.ticket_price) < 0:
+                                raise ValueError(
+                                    "Price must be a whole or floating number equal or greater than zero")
                             else:
                                 break
                         except ValueError as e:
@@ -203,7 +218,7 @@ class Train:
                     if self.id not in self.trains:
                         self.trains[self.id] = {"Name": self.name, "Line": self.moving_line.title(), "Average speed": self.avg_speed,
                                                 "Stop duration per station": self.stop_per_station, "Quality": self.quality, "Ticket price": self.ticket_price,
-                                                "Capacity": self.capacity}
+                                                "Capacity": self.capacity, "empty capacity": int(self.capacity)}
 
                         print(
                             f"\n***** Train with ID '{self.id}' has been successfully added *****\n")
@@ -357,3 +372,11 @@ class Train:
             if value["Line"] != line_name:
                 filtered_trains[key] = value
         self.trains = filtered_trains
+
+
+def is_float(number):
+    try:
+        float(number)
+        return True
+    except ValueError:
+        return False
