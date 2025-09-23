@@ -14,17 +14,23 @@ class Line:
 
             if station_names == ["0"]:
                 return None
+            elif station_names != ["0"]:
+                for station in station_names:
+                    if is_float(station):
+                        print(
+                            "Staion name could be a combination of alphabets and digits but not digits only")
+                        continue
 
-            if len(station_names) != num_stations:
+            elif len(station_names) != int(num_stations):
                 print(
                     f"Expected {num_stations} station names but received {len(station_names)}.")
                 continue
 
-            if len(set(station_names)) < len(station_names):
+            elif len(set(station_names)) < len(station_names):
                 print("Station names cannot be repetitive.")
                 continue
 
-            if any(station == origin.title() or station == destination.title() for station in station_names):
+            elif any(station == origin.title() or station == destination.title() for station in station_names):
                 print("Station name cannot be the same as 'Origin' or 'Destination'.")
                 continue
 
@@ -34,19 +40,23 @@ class Line:
         while True:
             try:
                 name = safe_input(
-                    "Line name:(Enter '0' to go back to employee panel ) ").strip()
+                    "Line name:(Enter '0' to go back to employee panel) ").strip()
                 if name == "0":
                     return
 
-                origin = safe_input("Origin: ").strip()
+                origin = safe_input(
+                    "Origin:(Enter '0' to go back to employee panel) ").strip()
                 if origin == "0":
                     return
 
                 while True:
-                    destination = safe_input("Destination: ").strip()
+                    destination = safe_input(
+                        "Destination:(Enter '0' to go back to employee panel) ").strip()
                     if destination.lower() == origin.lower():
                         print("'Destination' cannot be the same as 'Origin'")
                         continue
+                    elif destination == "0":
+                        return
                     break
 
                 while True:
@@ -106,6 +116,7 @@ class Line:
                     else:
                         print("Invalid option.")
 
+            print(sorted(list(self.lines.keys())))
             line_name_input = safe_input(
                 "Enter the name of the line you would like to edit:\n"
                 "(Enter '0' to go back to Employee Panel)\n>>> "
@@ -274,3 +285,11 @@ def safe_input(prompt):
             return value
         else:
             print("Input must be non-empty. Please try again.")
+
+
+def is_float(number):
+    try:
+        float(number)
+        return True
+    except ValueError:
+        return False
