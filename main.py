@@ -3,26 +3,8 @@ from user import UserManager, CardManager
 from train import TrainManager
 from ticket import TicketManager
 from wallet import WalletManager
-from utils import clear_screen
+from utils import print_sep
 
-# def start_panel():
-#     while True:
-#         clear_screen()
-#         print("=== Train Ticket System ===")
-#         print("1. Full Admin")
-#         print("2. Train Employee")
-#         print("3. Regular User")
-#         print("4. Exit")
-#         choice = input("Choose an option: ").strip()
-
-#         if choice == "3":
-#             regular_user_flow()
-#         elif choice == "4":
-#             print("Exiting...")
-#             break
-#         else:
-#             print("Only Regular User is supported in this version.")
-#             input("Press Enter to continue...")
 
 def regular_user_flow():
     user_manager = UserManager()
@@ -31,8 +13,9 @@ def regular_user_flow():
     wallet_manager = WalletManager()
 
     while True:
-        clear_screen()
-        print("=== Regular User Panel ===")
+        # clear_screen()
+        print_sep("Regular User Panel")
+        # print("=== Regular User Panel ===")
         print("1. Register")
         print("2. Login")
         print("3. Back to Start Menu")
@@ -56,8 +39,9 @@ def purchase_flow(user, user_manager, train_manager, ticket_manager, wallet_mana
     card_manager = CardManager(user)
     
     while True:
-        clear_screen()
-        print("=== Purchase Panel ===")
+        # clear_screen()
+        print_sep("Purchase Panel")
+        # print("=== Purchase Panel ===")
         print("1. Buy Ticket")
         print("2. Edit User Information")
         print("3. Manage Cards")
@@ -109,8 +93,9 @@ def purchase_flow(user, user_manager, train_manager, ticket_manager, wallet_mana
 def card_management_flow(card_manager):
     """Handle card management operations"""
     while True:
-        clear_screen()
-        print("=== Card Management ===")
+        # clear_screen()
+        print_sep("Card Management")
+        # print("=== Card Management ===")
         print("1. View Saved Cards")
         print("2. Add New Card")
         print("3. Remove Card")

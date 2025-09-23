@@ -1,5 +1,5 @@
 import re
-from utils import validate_email, validate_password, validate_registration_data, clear_screen
+from utils import validate_email, validate_password, validate_registration_data, print_sep
 
 class Card:
     def __init__(self, card_number, exp_month, exp_year, cvv2, card_name=""):
@@ -63,8 +63,9 @@ class UserManager:
 
     def register(self):
         while True:
-            clear_screen()
-            print("=== Register ===")
+            # clear_screen()
+            print_sep("Register")
+            # print("=== Register ===")
             print("(Type 'back' at any time to return to previous menu)")
             print()
             
@@ -80,7 +81,7 @@ class UserManager:
             if name.lower() == 'back':
                 return False
             
-            password = input("Enter password (or 'back' to cancel): ").strip()
+            password = input("Enter password (or 'back' to cancel):\nit must contain English letters, numbers, @ or &: ").strip()
             if password.lower() == 'back':
                 return False
 
@@ -109,8 +110,9 @@ class UserManager:
 
     def login(self):
         while True:
-            clear_screen()
-            print("=== Login ===")
+            # clear_screen()
+            print_sep("Login")
+            # print("=== Login ===")
             print("(Type 'back' at any time to return to previous menu)")
             print()
             
@@ -137,8 +139,9 @@ class UserManager:
                     return None
 
     def edit_user_info(self, user):
-        clear_screen()
-        print("=== Edit User Info ===")
+        # clear_screen()
+        print_sep("Edit User Info")
+        # print("=== Edit User Info ===")
         print("(Type 'back' at any time to return to previous menu)")
         print()
         print(f"Current Name: {user.name}")
@@ -173,8 +176,9 @@ class CardManager:
     
     def add_card(self):
         """Add a new card to user's saved cards"""
-        clear_screen()
-        print("=== Add New Card ===")
+        # clear_screen()
+        print_sep("Add New Card")
+        # print("=== Add New Card ===")
         print("(Type 'back' at any time to return to previous menu)")
         print()
         
@@ -242,8 +246,9 @@ class CardManager:
     
     def show_cards(self):
         """Display all saved cards with balance information"""
-        clear_screen()
-        print("=== My Saved Cards ===")
+        # clear_screen()
+        print_sep("My Saved Cards")
+        # print("=== My Saved Cards ===")
         
         if not self.user.cards:
             print("No cards saved yet.")
@@ -269,8 +274,9 @@ class CardManager:
             return
         
         while True:
-            clear_screen()
-            print("=== Select Card to View Details ===")
+            # clear_screen()
+            print_sep("Select Card to View Details")
+            # print("=== Select Card to View Details ===")
             for i, card in enumerate(self.user.cards, 1):
                 print(f"{i}. {card.get_display_info_with_balance()}")
             print(f"{len(self.user.cards) + 1}. Back to card list")
@@ -292,8 +298,9 @@ class CardManager:
     
     def show_card_transactions(self, card):
         """Show transaction history for a specific card"""
-        clear_screen()
-        print(f"=== {card.card_name} - Transaction History ===")
+        # clear_screen()
+        print_sep(f"=== {card.card_name} - Transaction History ===")
+        # print(f"=== {card.card_name} - Transaction History ===")
         print(f"Card: {card.get_masked_number()}")
         print(f"Current Balance: {card.balance:,} Toman")
         print(f"Expiry: {card.exp_month:02d}/{card.exp_year}")
@@ -321,8 +328,9 @@ class CardManager:
             return None
         
         while True:
-            clear_screen()
-            print("=== Select Card ===")
+            # clear_screen()
+            print_sep("Select Card")
+            # print("=== Select Card ===")
             for i, card in enumerate(self.user.cards, 1):
                 print(f"{i}. {card.get_display_info_with_balance()}")
             print(f"{len(self.user.cards) + 1}. Add new card")
@@ -354,8 +362,9 @@ class CardManager:
             return
         
         while True:
-            clear_screen()
-            print("=== Remove Card ===")
+            # clear_screen()
+            print_sep("Remove Card")
+            # print("=== Remove Card ===")
             for i, card in enumerate(self.user.cards, 1):
                 print(f"{i}. {card.get_display_info()}")
             print(f"{len(self.user.cards) + 1}. Cancel")

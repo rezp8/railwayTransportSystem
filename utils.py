@@ -1,6 +1,6 @@
 # utils.py
 import re
-import os
+# import os
 
 def validate_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -41,5 +41,12 @@ def validate_registration_data(username, email, name, password, existing_users):
     
     return errors
 
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+# def clear_screen():
+#     os.system('cls' if os.name == 'nt' else 'clear')
+
+def print_sep(title: str | None = None, width: int = 60):
+    line = "-" * width
+    if title:
+        print(f"\n{line}\n{title}\n{line}")
+    else:
+        print(f"\n{line}")
