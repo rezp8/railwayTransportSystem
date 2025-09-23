@@ -56,7 +56,7 @@ class Train:
                         stop_per_station = None
                     else:
                         while True:
-                            print(line.lines[moving_line]
+                            print(self.line.lines[moving_line]
                                   ["stations"])
                             stop_per_station = safe_input(
                                 f"Stop duration(in minutes) for each station, separated by spaces\n(Enter 'back' to go back to employee panel)\n>>> ").strip().title().split()
@@ -99,7 +99,7 @@ class Train:
                             "Capacity:(Type 'back' to go back to employee panel) ").strip().title()
                         if capacity == "Back":
                             return
-                        elif not self.capacity.isdecimal():
+                        elif not capacity.isdecimal():
                             print("Capacity must be whole number greater than zero")
                         break
 
