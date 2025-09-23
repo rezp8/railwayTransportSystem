@@ -74,10 +74,7 @@ class Train:
                             if self.avg_speed == "":
                                 raise ValueError(
                                     "Average speed cannot be empty")
-                            elif not is_float(self.avg_speed):
-                                raise ValueError(
-                                    "Average speed must be a whole or floating number")
-                            elif float(self.avg_speed) <= 0:
+                            elif not is_float(self.avg_speed) or float(self.avg_speed) < 0:
                                 raise ValueError(
                                     "Average speed must be a whole or floating number greater than zero")
                             else:
@@ -154,12 +151,9 @@ class Train:
                             if self.ticket_price == "":
                                 raise ValueError(
                                     "Price cannot be empty.")
-                            elif not is_float(self.ticket_price):
+                            elif not is_float(self.ticket_price) or float(self.ticket_price) < 0:
                                 raise ValueError(
-                                    "Price must be a whole or floating number")
-                            elif float(self.ticket_price) < 0:
-                                raise ValueError(
-                                    "Price must be a whole or floating number equal or greater than zero")
+                                    "Price must be a whole or floating number greater than zero")
                             else:
                                 break
                         except ValueError as e:
@@ -266,8 +260,8 @@ class Train:
                     while True:
                         try:
                             user_input2 = input(
-                                "What feature would you like to edit?(Name, Line, Average speed, Stop per station, Quality, Ticket price, Capacity): ").strip().lower()
-                            reference = ["name", "line", "average speed", "stop per station",
+                                "What feature would you like to edit?(Name, Line, Average speed, Stop duration per station, Quality, Ticket price, Capacity): ").strip().lower()
+                            reference = ["name", "line", "average speed", "stop duration per station",
                                          "quality ", "ticket price", "capacity"]
                             if user_input2 in reference:
                                 while True:
