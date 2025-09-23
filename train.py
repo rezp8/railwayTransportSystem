@@ -48,6 +48,10 @@ class TrainManager:
                 i
             ))
         try:
+            if len(trains)==0:
+                print("There are no available trains")
+                input("Press Enter to continue...")
+                return None
             choice = input("Select train number (or 'back' to cancel): ").strip()
             if choice.lower() == 'back':
                 return None
