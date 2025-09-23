@@ -118,7 +118,7 @@ class Line:
 
             print(sorted(list(self.lines.keys())))
             line_name_input = safe_input(
-                "Enter the name of the line you would like to edit:\n"
+                "Enter the name of the line you would like to edit from the list above:\n"
                 "(Enter '0' to go back to Employee Panel)\n>>> "
             ).strip()
             if line_name_input == "0":
@@ -230,8 +230,9 @@ class Line:
                             return
                         else:
                             print("Invalid option.")
+                print(sorted(list(self.lines.keys())))
                 user_input = safe_input(
-                    "Enter the name of the line you would like to remove: ").strip().title()
+                    "Enter the name of the line you would like to remove from the list above: ").strip().title()
                 if user_input in self.lines:
                     self.lines.pop(user_input)
                     self.train.remove_trains_by_line(user_input)
