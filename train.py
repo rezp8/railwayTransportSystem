@@ -28,23 +28,24 @@ class TrainManager:
         
         # Add trains from the main system
         for i in train.trains:
+            available_capacity = int(train.trains[i]["Capacity"]) - train.trains[i]["filled"]
             trains.append(Train(
                 train.trains[i]["Name"],
                 train.line.lines[train.trains[i]["Line"]]["origin"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
-                int(train.trains[i]["Capacity"])-train.trains[i]["filled"], 
+                max(0, available_capacity),  # Ensure capacity is never negative
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
         
         # If no trains in main system, show default trains
         if not trains:
-            trains = [Train("Rajaei","rasht", "Tehran", 16, 120, "default_1"), Train("Rajaei","babol", "Shiraz", 10, 320, "default_2")]
+            trains = [Train("Raja","Rasht", "Tehran", 16, 120, "default_1"), Train("Fadak","Babol", "Shiraz", 10, 320, "default_2")]
         
         print("\n=== Available Trains ===")
         for i, t in enumerate(trains):
             status = "Capacity Full" if t.capacity <= 0 else f"{t.capacity} seats left"
-            print(f"{i+1}. {t.name} -> {t.destination} | Price: {t.price} | {status}")
+            print(f"{i+1}. {t.name} | {t.origin} -> {t.destination} | Price: {t.price} | {status}")
 
     def select_train(self): 
         from final_employee_panel import train
@@ -52,18 +53,19 @@ class TrainManager:
         
         # Add trains from the main system
         for i in train.trains:
+            available_capacity = int(train.trains[i]["Capacity"]) - train.trains[i]["filled"]
             trains.append(Train(
                 train.trains[i]["Name"],
                 train.line.lines[train.trains[i]["Line"]]["origin"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
-                int(train.trains[i]["Capacity"])-train.trains[i]["filled"],  
+                max(0, available_capacity),  # Ensure capacity is never negative
                 int(train.trains[i]["Ticket price"]),
                 i
             ))
         
         # If no trains in main system, show default trains
         if not trains:
-            trains = [Train("Rajaei","rasht", "Tehran", 16, 120, "default_1"), Train("Rajaei","babol", "Shiraz", 10, 320, "default_2")]
+            trains = [Train("Raja","Rasht", "Tehran", 16, 120, "default_1"), Train("Fadak","Babol", "Shiraz", 10, 320, "default_2")]
         
         try:
             if len(trains)==0:

@@ -60,6 +60,17 @@ def purchase_flow(user, user_manager, train_manager, ticket_manager, wallet_mana
                     
                     try:
                         count = int(count_input)
+                        
+                        # Check if train has enough available capacity
+                        if count > train.capacity:
+                            print(f"Not enough seats available. Requested: {count}, Available: {train.capacity}")
+                            add_funds = input("Would you like to try with fewer tickets? (y/n): ").strip().lower()
+                            if add_funds == 'y':
+                                continue
+                            else:
+                                input("Press Enter to continue...")
+                                continue
+                        
                         total_cost = train.price * count
                         if wallet_manager.has_sufficient_balance(user, total_cost):
                             # Ask user to select a card for the purchase
@@ -89,13 +100,21 @@ def purchase_flow(user, user_manager, train_manager, ticket_manager, wallet_mana
                                     input("Press Enter to continue...")
                                     continue
                             
+                            # Issue the ticket first to validate capacity
+                            ticket_issued = ticket_manager.issue_ticket(user, train, count)
+                            
+                            if ticket_issued is False:
+                                print("Ticket purchase failed due to capacity issues.")
+                                input("Press Enter to continue...")
+                                continue
+                            
+                            # If ticket was issued successfully, proceed with payment
                             wallet_manager.deduct_balance(user, total_cost)
                             
                             # Update card balance if a card was selected
                             if selected_card:
                                 selected_card.add_transaction(total_cost, 'payment', f'Ticket purchase: {train.name} x{count}')
                             
-                            ticket_manager.issue_ticket(user, train, count)
                             wallet_manager.record_ticket_purchase(user, total_cost, train.name, count)
                         else:
                             print("Insufficient balance for this purchase.")

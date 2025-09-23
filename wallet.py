@@ -129,4 +129,5 @@ class WalletManager:
         """Record a ticket purchase transaction"""
         # This could be enhanced to track which card was used for the purchase
         # For now, we'll just record it as a general transaction
+        print(f"Ticket purchase recorded: {train_name} x{ticket_count} for {amount} Toman by {user.name}")
         pass

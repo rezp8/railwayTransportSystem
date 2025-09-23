@@ -283,7 +283,7 @@ class Train:
                 if user_input in self.trains:
                     self.trains.pop(user_input)
                     print(
-                        f"\n***** Train '{self.id}' has been successfully removed *****\n")
+                        f"\n***** Train '{user_input}' has been successfully removed *****\n")
                     while True:
                         user_input1 = input(
                             "Enter '0' to go back to Employee Panel or '1' to remove another train: ").strip()
