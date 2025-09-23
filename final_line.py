@@ -105,7 +105,6 @@ class Line:
                         return
                     else:
                         print("Invalid option.")
-                return
 
             line_name_input = safe_input(
                 "Enter the name of the line you would like to edit:\n"
