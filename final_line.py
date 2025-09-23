@@ -14,24 +14,36 @@ class Line:
 
             if station_names == ["0"]:
                 return None
-            elif station_names != ["0"]:
-                for station in station_names:
-                    if is_float(station):
-                        print(
-                            "Staion name could be a combination of alphabets and digits but not digits only")
-                        continue
 
-            elif len(station_names) != int(num_stations):
-                print(
-                    f"Expected {num_stations} station names but received {len(station_names)}.")
-                continue
+            errors = []
 
-            elif len(set(station_names)) < len(station_names):
-                print("Station names cannot be repetitive.")
-                continue
+            if len(station_names) != num_stations:
+                errors.append(
+                    f"- Expected {num_stations} station names but received {len(station_names)}."
+                )
+  
+            if any(station.isdigit() for station in station_names):
+                errors.append(
+                    "- Station name could be a combination of alphabets and digits but not digits only."
+                )
+     
+            if len(set(station_names)) < len(station_names):
+                errors.append("- Station names cannot be repetitive.")
 
-            elif any(station == origin.title() or station == destination.title() for station in station_names):
-                print("Station name cannot be the same as 'Origin' or 'Destination'.")
+            invalid_matches = [
+                station for station in station_names
+                if station == origin.title() or station == destination.title()
+            ]
+            if invalid_matches:
+                errors.append(
+                    f"- Station name cannot be the same as 'Origin' or 'Destination' ({', '.join(invalid_matches)})."
+                )
+    
+            if errors:
+                print("\nThe following issues were found with your input:")
+                for err in errors:
+                    print(err)
+                print(">>> Please try again.\n")
                 continue
 
             return station_names
@@ -39,40 +51,52 @@ class Line:
     def creating(self):
         while True:
             try:
-                name = safe_input(
-                    "Line name:(Enter '0' to go back to employee panel) ").strip()
-                if name == "0":
-                    return
+                while True:
+                    name = safe_input("Line name:(Enter '0' to go back to employee panel) ").strip()
+                    if name == "0":
+                        return
 
-                origin = safe_input(
-                    "Origin:(Enter '0' to go back to employee panel) ").strip()
-                if origin == "0":
-                    return
+                    if name.lower() in [line.lower() for line in self.lines.keys()]:
+                        print(f"A line named '{name}' already exists. Line names cannot be repetitive.\n")
+                        continue
+                    else:
+                        break
 
                 while True:
-                    destination = safe_input(
-                        "Destination:(Enter '0' to go back to employee panel) ").strip()
-                    if destination.lower() == origin.lower():
-                        print("'Destination' cannot be the same as 'Origin'")
-                        continue
-                    elif destination == "0":
+                    origin = safe_input("Origin:(Enter '0' to go back to employee panel) ").strip()
+                    if origin == "0":
                         return
+                    if not is_alpha_only(origin):
+                        print("'Origin' must contain alphabets only.\n")
+                        continue
                     break
 
                 while True:
-                    stations_number = safe_input(
-                        "Number of stations: ").strip()
+                    destination = safe_input("Destination:(Enter '0' to go back to employee panel) ").strip()
+                    if destination == "0":
+                        return
+                    if not is_alpha_only(destination):
+                        print("'Destination' must contain alphabets only.\n")
+                        continue
+                    if destination.lower() == origin.lower():
+                        print("'Destination' cannot be the same as 'Origin'.\n")
+                        continue
+                    break
+
+                while True:
+                    stations_number = safe_input("Number of stations:(type 'back' to go back to go back to Employee panel) ").strip()
+                    if  stations_number =="back":
+                        return
+
                     if not stations_number.isdecimal():
-                        print(
-                            "Number of stations must be a whole number equal or greater than zero.")
+                        print("Number of stations must be a whole number equal or greater than zero.\n")
                         continue
                     break
 
                 if int(stations_number) == 0:
                     station_names = None
                 else:
-                    stations = self.get_valid_stations(
-                        int(stations_number), origin, destination)
+                    stations = self.get_valid_stations(int(stations_number), origin, destination)
                     if stations is None:
                         return
                     station_names = stations
@@ -84,15 +108,12 @@ class Line:
                         "number of stations": stations_number,
                         "stations": station_names
                     }
-                    print(
-                        f"\n***** '{name}' has been successfully added *****\n")
+                    print(f"\n***** '{name}' has been successfully added *****\n")
                 else:
-                    print(
-                        f"A line named '{name}' already exists. Line names cannot be repetitive.")
+                    print(f"A line named '{name}' already exists. Line names cannot be repetitive.")
 
                 while True:
-                    user_input6 = input(
-                        "Enter '0' to go back to Employee Panel or '1' to add another line: ").strip()
+                    user_input6 = input("Enter '0' to go back to Employee Panel or '1' to add another line: ").strip()
                     if user_input6 == "1":
                         break
                     elif user_input6 == "0":
@@ -109,8 +130,7 @@ class Line:
                 print("No line found to edit.")
                 print("------------------------")
                 while True:
-                    user_input0 = input(
-                        "Enter 0 to go back to Employee Panel: ").strip()
+                    user_input0 = input("Enter 0 to go back to Employee Panel: ").strip()
                     if user_input0 == "0":
                         return
                     else:
@@ -124,12 +144,12 @@ class Line:
             if line_name_input == "0":
                 return
 
-            if line_name_input in self.lines:
-                line_name = line_name_input
+            line_keys_lower = {key.lower(): key for key in self.lines.keys()}
+            if line_name_input.lower() in line_keys_lower:
+                line_name = line_keys_lower[line_name_input.lower()]
             else:
                 print(f"Line named '{line_name_input}' doesn't exist.")
-                retry = safe_input(
-                    "Enter '1' to try again or '0' to return to Employee Panel:\n>>> ").strip()
+                retry = safe_input("Enter '1' to try again or '0' to return to Employee Panel:\n>>> ").strip()
                 if retry == "0":
                     return
                 else:
@@ -138,28 +158,29 @@ class Line:
             print(f"{line_name} : {self.lines[line_name]}")
 
             while True:
-                reference = ["origin", "destination",
-                             "number of stations", "stations"]
-                feature = safe_input(
-                    "What feature would you like to edit? (origin, destination, number of stations, stations)\n"
-                    "(Enter '0' to go back to Employee Panel)\n>>> "
+
+                feature_map = {
+                            "1": "origin",
+                            "2": "destination",
+                            "3": "number of stations",
+                            "4": "stations"
+                        }
+                feature_input = safe_input(
+                    "What feature would you like to edit? \n1. origin\n2. destination\n3. number of stations\n4. stations\n0. Return to Employee Panel\n:"
                 ).strip().lower()
 
                 if feature == "0":
                     return
-
-                if feature not in reference:
-                    print(
-                        f"There is no feature named '{feature}'. Please try again.")
+                feature = feature_map.get(feature_input)
+                if not feature:
+                    print("Invalid option. Please try again.")
                     continue
 
                 if feature == "number of stations":
                     while True:
-                        new_value = safe_input(
-                            "Enter the new number of stations:\n>>> ").strip()
+                        new_value = safe_input("Enter the new number of stations:\n>>> ").strip()
                         if not new_value.isdigit() or int(new_value) < 0:
-                            print(
-                                "Number of stations must be a whole number equal or greater than zero.")
+                            print("Number of stations must be a whole number equal or greater than zero.")
                             continue
                         self.lines[line_name]["number of stations"] = new_value
                         if int(new_value) == 0:
@@ -177,8 +198,7 @@ class Line:
 
                 elif feature == "stations":
                     if self.lines[line_name]["number of stations"] == "0":
-                        print(
-                            "This line has 0 stations, edit 'number of stations' first.")
+                        print("This line has 0 stations, edit 'number of stations' first.")
                         continue
                     stations = self.get_valid_stations(
                         int(self.lines[line_name]["number of stations"]),
@@ -190,12 +210,27 @@ class Line:
                     self.lines[line_name]["stations"] = stations
 
                 else:
-                    new_value = safe_input(
-                        f"Enter the new value for '{feature}':\n>>> ").strip()
-                    self.lines[line_name][feature] = new_value
+                    while True:
+                        new_value = safe_input(f"Enter the new value for '{feature}':\n>>> ").strip()
+                        if feature in ["origin", "destination"]:
+                            if not is_alpha_only(new_value):
+                                print(f"'{feature.title()}' must contain alphabets only.")
+                                continue
+                            if feature == "destination":
+                                if new_value.lower() == self.lines[line_name]["origin"].lower():
+                                    print("'Destination' cannot be the same as 'Origin'")
+                                    continue
+                            if feature == "origin":
+                                if new_value.lower() == self.lines[line_name]["destination"].lower():
+                                    print("'Origin' cannot be the same as 'Destination'")
+                                    continue
+                            if any(new_value.lower() == station.lower() for station in self.lines[line_name].get("stations", []) or []):
+                                print(f"'{feature.title()}' cannot be the same as any station")
+                                continue
+                        self.lines[line_name][feature] = new_value.title()
+                        break
 
-                print(
-                    f"\n***** {feature} of '{line_name}' has been successfully changed. *****\n")
+                print(f"\n***** {feature} of '{line_name}' has been successfully changed. *****\n")
 
                 while True:
                     next_step = safe_input(
@@ -216,6 +251,9 @@ class Line:
                     continue
                 elif next_step == "2":
                     break
+
+
+
 
     def removing(self):
         while True:
@@ -294,3 +332,9 @@ def is_float(number):
         return True
     except ValueError:
         return False
+    
+def is_alpha_only(text: str) -> bool:
+    return text.isalpha()
+
+def is_valid_station(name: str) -> bool:
+    return not name.isdigit()
