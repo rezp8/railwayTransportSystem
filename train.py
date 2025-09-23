@@ -9,8 +9,9 @@
 #                         "empty capacity": int(self.capacity)
 # }
 class Train:
-    def __init__(self, name, destination, capacity, price, id):
+    def __init__(self, name, origin, destination, capacity, price, id):
         self.name = name
+        self.origin = origin
         self.destination = destination
         self.capacity = capacity
         self.price = price
@@ -26,6 +27,7 @@ class TrainManager:
         for i in train.trains:
             trains.append(Train(
                 train.trains[i]["Name"],
+                train.line.lines[train.trains[i]["Line"]]["origin"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
                 int(train.trains[i]["Capacity"])-train.trains[i]["filled"], 
                 int(train.trains[i]["Ticket price"]),
@@ -42,6 +44,7 @@ class TrainManager:
         for i in train.trains:
             trains.append(Train(
                 train.trains[i]["Name"],
+                train.line.lines[train.trains[i]["Line"]]["origin"],
                 train.line.lines[train.trains[i]["Line"]]["destination"], 
                 int(train.trains[i]["Capacity"])-train.trains[i]["filled"],  
                 int(train.trains[i]["Ticket price"]),
