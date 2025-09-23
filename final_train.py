@@ -30,6 +30,7 @@ class Train:
                         elif is_float(name):
                             print(
                                 "Name could be a combination of alphabets and digits but not digits only")
+                            continue
                         break
 
                     while True:
@@ -40,6 +41,7 @@ class Train:
                             return
                         elif moving_line not in list(self.line.lines.keys()):
                             print(f"Line named '{moving_line}' doesn't exist")
+                            continue
                         break
 
                     while True:
@@ -84,6 +86,7 @@ class Train:
                         elif quality not in quality_reference:
                             print(
                                 f"Quality '{quality}' has not been defined.")
+                            continue
                         break
 
                     while True:
@@ -94,6 +97,7 @@ class Train:
                         elif not is_float(ticket_price) or float(ticket_price) < 0:
                             print(
                                 "Price must be a whole or floating number equal or greater than zero")
+                            continue
                         break
 
                     while True:
@@ -110,9 +114,10 @@ class Train:
                             "Train ID:(Type 'back' to go back to employee panel) ").strip().title()
                         if train_id == "":
                             return
-                        elif is_float(name):
+                        elif is_float(train_id):
                             print(
                                 "Train ID could be a combination of alphabets and digits but not digits only")
+                            continue
                         break
 
                     if train_id not in self.trains:
@@ -324,13 +329,13 @@ class Train:
                     print(f"  Stop/Station  : None")
 
             print("\n************************\n")
-            while True:
-                user_input0 = input(
-                    "Enter 0 to go back to Employee Panel: ").strip()
-                if user_input0 == "0":
-                    break
-                else:
-                    print("Invalid option.")
+        while True:
+            user_input0 = input(
+                "Enter 0 to go back to Employee Panel: ").strip()
+            if user_input0 == "0":
+                break
+            else:
+                print("Invalid option.")
 
 
     def remove_trains_by_line(self, line_name):
