@@ -70,19 +70,17 @@ def employee_panel():
             print(e)
             while True:
                 user_input1 = safe_input(
-                    "Enter '0' to exit or '1' to try again: ").strip()
+                    "Enter  '1' to try again: ").strip()
                 if user_input1 == "1":
                     break
-                elif user_input1 == "0":
-                    return
                 else:
                     print("Invalid option. Please choose either '0' or '1'.")
-
 def safe_input(prompt):
     while True:
         value = input(prompt).strip()
         if value != "":
             return value
         else:
-            print("Input must be non-empty. Please try again.")
-employee_panel
+            print("Input must be non-empty. Please try again")
+
+employee_panel()
