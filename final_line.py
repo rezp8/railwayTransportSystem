@@ -333,9 +333,17 @@ class Line:
         if len(self.lines) == 0:
             print(f"\nNo line found to display")
         else:
+            print("\n******** Lines ********")
             for key, value in self.lines.items():
-                print(f"{key} : {value}")
-        print("------------------------")
+                print(f"\nLine Name : {key}")
+                print(f"  Origin : {value['origin']}")
+                print(f"  Destination : {value['destination']}")
+                print(f"  Stations No. : {value['number of stations']}")
+                if value['stations']:
+                    print(f"  Stations : {', '.join(value['stations'])}")
+                else:
+                    print(f"  Stations : None")
+            print("\n***********************\n")
         while True:
             user_input0 = input(
                 "Enter 0 to go back to Employee Panel: ").strip()
