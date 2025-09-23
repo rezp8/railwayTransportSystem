@@ -186,7 +186,7 @@ class Line:
                 ).strip().lower()
 
                 feature = feature_map.get(feature_input)
-                if feature == "0":
+                if feature_input == "0":
                     return
 
                 if not feature:
