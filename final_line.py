@@ -169,16 +169,21 @@ class Line:
                     "What feature would you like to edit? \n1. origin\n2. destination\n3. number of stations\n4. stations\n0. Return to Employee Panel\n:"
                 ).strip().lower()
 
+                
+                feature = feature_map.get(feature_input)
                 if feature == "0":
                     return
-                feature = feature_map.get(feature_input)
+                
                 if not feature:
                     print("Invalid option. Please try again.")
                     continue
 
                 if feature == "number of stations":
                     while True:
-                        new_value = safe_input("Enter the new number of stations:\n>>> ").strip()
+                        new_value = safe_input("Enter the new number of stations\nor Enter 'back' to go back to Employee panel>>> ").strip().title()
+                        if new_value=="Back":
+                            return
+                
                         if not new_value.isdigit() or int(new_value) < 0:
                             print("Number of stations must be a whole number equal or greater than zero.")
                             continue
@@ -211,7 +216,9 @@ class Line:
 
                 else:
                     while True:
-                        new_value = safe_input(f"Enter the new value for '{feature}':\n>>> ").strip()
+                        new_value = safe_input(f"Enter the new value for '{feature}':\nor Enter 'back' to go back to Employee panel>>> ").strip().title()
+                        if new_value=="Back":
+                            return
                         if feature in ["origin", "destination"]:
                             if not is_alpha_only(new_value):
                                 print(f"'{feature.title()}' must contain alphabets only.")
@@ -333,8 +340,8 @@ def is_float(number):
     except ValueError:
         return False
     
-def is_alpha_only(text: str) -> bool:
+def is_alpha_only(text) :
     return text.isalpha()
 
-def is_valid_station(name: str) -> bool:
+def is_valid_station(name) :
     return not name.isdigit()
