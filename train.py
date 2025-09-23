@@ -39,7 +39,7 @@ class TrainManager:
         
         # If no trains in main system, show default trains
         if not trains:
-            trains = [Train("Rajaei", "Tehran", 16, 120, "default_1"), Train("Rajaei", "Shiraz", 10, 320, "default_2")]
+            trains = [Train("Rajaei","rasht", "Tehran", 16, 120, "default_1"), Train("Rajaei","babol", "Shiraz", 10, 320, "default_2")]
         
         print("\n=== Available Trains ===")
         for i, t in enumerate(trains):
@@ -63,7 +63,7 @@ class TrainManager:
         
         # If no trains in main system, show default trains
         if not trains:
-            trains = [Train("Rajaei", "Tehran", 16, 120, "default_1"), Train("Rajaei", "Shiraz", 10, 320, "default_2")]
+            trains = [Train("Rajaei","rasht", "Tehran", 16, 120, "default_1"), Train("Rajaei","babol", "Shiraz", 10, 320, "default_2")]
         
         try:
             if len(trains)==0:
